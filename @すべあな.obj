@@ -1,7 +1,7 @@
-@ƒ‚[ƒ‹ƒX’Z‰¹
+@ƒ‚[ƒ‹ƒX
 --track0:XƒTƒCƒY,0,100,30,1
---track1:YƒTƒCƒY,0,500,349,1
---track2:‘O/Œã,0,1,0,1
+--track1:‰æ–Ê‚‚³,0,3000,1080,1
+--track2:ŠÔ,0,3,0,1
 --dialog:F/col,color=0xffffff;Ôü/chk,red=0;
 
 function rounded_rect(x, y, xsize, ysize, radius, color)
@@ -18,25 +18,42 @@ function rounded_rect(x, y, xsize, ysize, radius, color)
   obj.draw(x + (xsize / 2) - radius, y + (ysize / 2) - radius) --‰E‰º
 end
 
-if obj.track2 == 1 then
-  obj.setoption("drawtarget", "tempbuffer", obj.track0, obj.track1 * 3)
+obj.setoption("drawtarget", "tempbuffer", obj.track0, obj.track1)
 
-  --}Œ`‚Ì‚‚³‚ª‘O‚ÆŒã‚Å•Ï‚í‚Á‚Ä‚ÄƒLƒŒ‚»‚¤
-  rounded_rect(0, -obj.track1 * (31/36), obj.track0, obj.track1 * (13/18), 3, color)
-  rounded_rect(0, obj.track1 * (31/36), obj.track0, obj.track1 * (13/18), 3, color)
-else
-  obj.setoption("drawtarget", "tempbuffer", obj.track0, obj.track1)
-
-  rounded_rect(0, 0, obj.track0, obj.track1, 3, color)
+if obj.track2 == 0 then
+  rounded_rect(0, 0, obj.track0, obj.track1 * (35/108), 3, color)
 
   if red == 1 then
-    rounded_rect(0, 0, obj.track0, 10, 3, 0xff0000)
+    rounded_rect(0, 0, obj.track0, obj.track1 / 108, 3, 0xff0000)
   end
+elseif obj.track2 == 1 then
+  --}Œ`‚Ì‚‚³‚ª‘O‚ÆŒã‚Å•Ï‚í‚Á‚Ä‚ÄƒLƒŒ‚»‚¤
+  rounded_rect(0, -obj.track1 * (61/216), obj.track0, obj.track1 * (13/54), 3, color)
+  rounded_rect(0, obj.track1 * (61/216), obj.track0, obj.track1 * (13/54), 3, color)
+elseif obj.track2 == 2 then
+  rounded_rect(0, -obj.track1 * (5 / 24), obj.track0, obj.track1 / 54, 3, color)
+  rounded_rect(0, obj.track1 * (5 / 24), obj.track0, obj.track1 / 54, 3, color)
+
+  rounded_rect(0, obj.track1 / 4 + 0.5, obj.track0, obj.track1 * (7 / 108), 3, color)
+  rounded_rect(0, -obj.track1 / 4 - 0.5, obj.track0, obj.track1 * (7 / 108), 3, color)
+
+  rounded_rect(0, obj.track1 / 2, obj.track0, obj.track1 * (37 / 108), 3, color)
+  rounded_rect(0, -obj.track1 / 2, obj.track0, obj.track1 * (37 / 108), 3, color)
+elseif obj.track2 == 3 then
+  rounded_rect(0, obj.track1 * (17 / 72), obj.track0, obj.track1 / 54, 3, color)
+  rounded_rect(0, -obj.track1 * (17 / 72), obj.track0, obj.track1 / 54, 3, color)
+
+  rounded_rect(0, obj.track1 / 3, obj.track0, obj.track1 * (5 / 108), 3, color)
+  rounded_rect(0, -obj.track1 / 3, obj.track0, obj.track1 * (5 / 108), 3, color)
+
+  rounded_rect(0, obj.track1 / 2, obj.track0, obj.track1 * (17 / 108), 3, color)
+  rounded_rect(0, -obj.track1 / 2, obj.track0, obj.track1 * (17 / 108), 3, color)
 end
 obj.setoption("drawtarget", "framebuffer")
 obj.load("tempbuffer")
 
-@... ƒpƒ‹ƒX
+
+@...ƒpƒ‹ƒX
 --track0:ƒTƒCƒY,0,1000,40,1
 --track1:c‰¡”ä,-100,100,0,1
 --track2:ƒV[ƒh,-1000,1000,0,1
@@ -65,7 +82,7 @@ obj.effect("ƒ‰ƒXƒ^[","‰¡•",7*scale,"‚‚³",15*scale,"cƒ‰ƒXƒ^[",1,"ƒ‰ƒ“ƒ_ƒ€U•
 obj.effect("ƒOƒ[","‹­‚³",34,"ŠgU",42,"‚µ‚«‚¢’l",40,"color",color4,"‚Ú‚©‚µ",1,"no_color",0)
 obj.draw()
 
-@... ƒo[(–¢Š®¬)
+@...ƒo[(–¢Š®¬)
 --II–¢Š®¬IIII–¢Š®¬IIII–¢Š®¬IIII–¢Š®¬IIII–¢Š®¬IIII–¢Š®¬IIII–¢Š®¬IIII–¢Š®¬IIII–¢Š®¬II
 --track0:ƒOƒ‰ƒf•,0,1000,175,1
 --track1:Œõ‹­‚³,0,300,52,1
