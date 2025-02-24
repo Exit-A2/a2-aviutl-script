@@ -1,2 +1,4 @@
 # Auto detect text files and perform LF normalization
 * text=auto
+*.anm=working-tree-encoding=cp932
+*.obj=working-tree-encoding=cp932
