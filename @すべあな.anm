@@ -1,3 +1,4 @@
+@Z座標から拡大率
 --track0:Z座標,0,500,10,0.01
 --track1:基準Z座標,0.01,500,10,0.01
 --track2:Xずれ,-20,20,0,0.01
@@ -14,4 +15,12 @@ else
         zoom = zoom / 2
     end
     obj.effect("拡大率", "拡大率", zoom)
+end
+
+@ランダム点滅
+--track0:コマ落ち,1,60,1,1
+r = obj.rand(0,1,obj.layer * obj.totalframe * obj.screen_h, math.floor(obj.frame / obj.track0))
+print(math.floor(obj.frame / obj.track0))
+if r == 0 then
+    obj.draw(0,0,0,0)
 end
