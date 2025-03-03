@@ -1,0 +1,17 @@
+--track0:Zç¿ïW,0,500,10,0.01
+--track1:äÓèÄZç¿ïW,0.01,500,10,0.01
+--track2:XÇ∏ÇÍ,-20,20,0,0.01
+--track3:YÇ∏ÇÍ,-20,20,0,0.01
+
+if (obj.track0 == 0) then
+    obj.draw(0,0,0,0)
+else
+    local zoom = obj.track1 / obj.track0 * 100
+    obj.ox = obj.track2 * zoom
+    obj.oy = obj.track3 * zoom
+    while (800 < zoom) do
+        obj.effect("ägëÂó¶", "ägëÂó¶", 200)
+        zoom = zoom / 2
+    end
+    obj.effect("ägëÂó¶", "ägëÂó¶", zoom)
+end
