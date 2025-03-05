@@ -97,25 +97,27 @@ obj.effect("ノイズ","強さ",34,"速度Y",obj.track2 * fscale,"変化速度",2.1 * obj.t
 obj.effect("グロー","強さ",obj.track1,"拡散",39,"no_color",0,"color",color)
 
 @表 / 裏 リトマス
---track0:Xサイズ,0,1000,34,0.1
---track1:Yサイズ,0,1000,163,0.1
---track2:時間,1,100,0,1
---dialog:拡散,kak=48;ライン幅,l=3;色/col,color=0x00ffff;
+--track0:Xサイズ,0,1080,48,0.1
+--track1:Yサイズ,0,1080,240,0.1
+--track2:時間,1,60,1,0.1
+--dialog:拡散,kak=70;ライン幅,l=1;色/col,color=0x00ffff;
 
-time = obj.track2 - 1
-obj.load("figure","四角形",color,100)
-obj.effect("リサイズ","X",obj.track0,"Y",obj.track1,"ドット数でサイズ指定",1)
-
-obj.effect("拡散光","強さ",100,"拡散",kak + (500 - kak) * (time / 100))
-obj.alpha=1 - (obj.track2 / 100)
+local aspect = -1 + (obj.track1 / obj.track0)
+local size = obj.track0
+if obj.track0 < obj.track1 then
+    size = obj.track1
+    aspect = 1 - (obj.track0 / obj.track1)
+end
+local time = obj.track2 - 1
+print(aspect)
+obj.load("figure","四角形",color,size,4000,aspect)
+obj.effect("拡散光","強さ",100,"拡散",kak + (500 - kak) * (time / 60))
+obj.alpha=1 - (obj.track2 / 60)
 obj.draw()
 
-obj.load("figure","四角形",0x000000,100)
-obj.alpha=1 - (obj.track2 / 100)
-obj.effect("リサイズ","X",obj.track0 - l * 2,"Y",obj.track1 - l * 2,"ドット数でサイズ指定",1)
-obj.effect("縁取り","サイズ",l,"color",0xffffff)
-obj.effect("ルミナンスキー")
-obj.effect("グロー","拡散",kak * 1.14583 - (kak * 1.14583 * (time / 100)))
+obj.load("figure","四角形",0xffffff,size + 1,1,aspect)
+obj.alpha=1 - (obj.track2 / 60)
+obj.effect("グロー","拡散",kak * 1.14583 - (kak * 1.14583 * (time / 60)))
 obj.draw()
 
 @アブジェ波紋
