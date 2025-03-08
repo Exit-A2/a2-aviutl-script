@@ -4,3 +4,5 @@
 *.scn text eol=crlf linguist-language=Lua working-tree-encoding=cp932
 *.cam text eol=crlf linguist-language=Lua working-tree-encoding=cp932
 *.tra text eol=crlf linguist-language=Lua working-tree-encoding=cp932
+*.exa text eol=crlf working-tree-encoding=cp932
+*.exo text eol=crlf working-tree-encoding=cp932
