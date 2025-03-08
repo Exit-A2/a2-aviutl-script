@@ -1,8 +1,8 @@
-@ZÀ•W‚©‚çŠg‘å—¦
---track0:ZÀ•W,0,500,10,0.01
---track1:Šî€ZÀ•W,0.01,500,10,0.01
---track2:X‚¸‚ê,-20,20,0,0.01
---track3:Y‚¸‚ê,-20,20,0,0.01
+@Zåº§æ¨™ã‹ã‚‰æ‹¡å¤§ç‡
+--track0:Zåº§æ¨™,0,500,10,0.01
+--track1:åŸºæº–Zåº§æ¨™,0.01,500,10,0.01
+--track2:Xãšã‚Œ,-20,20,0,0.01
+--track3:Yãšã‚Œ,-20,20,0,0.01
 
 if (obj.track0 == 0) then
     obj.draw(0,0,0,0)
@@ -11,14 +11,14 @@ else
     obj.ox = obj.track2 * zoom
     obj.oy = obj.track3 * zoom
     while (800 < zoom) do
-        obj.effect("Šg‘å—¦", "Šg‘å—¦", 200)
+        obj.effect("æ‹¡å¤§ç‡", "æ‹¡å¤§ç‡", 200)
         zoom = zoom / 2
     end
-    obj.effect("Šg‘å—¦", "Šg‘å—¦", zoom)
+    obj.effect("æ‹¡å¤§ç‡", "æ‹¡å¤§ç‡", zoom)
 end
 
-@ƒ‰ƒ“ƒ_ƒ€“_–Å
---track0:ƒRƒ}—‚¿,1,60,1,1
+@ãƒ©ãƒ³ãƒ€ãƒ ç‚¹æ»…
+--track0:ã‚³ãƒè½ã¡,1,60,1,1
 r = obj.rand(0,1,obj.layer * obj.totalframe * obj.screen_h, math.floor(obj.frame / obj.track0))
 print(math.floor(obj.frame / obj.track0))
 if r == 0 then

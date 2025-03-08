@@ -1,21 +1,21 @@
-@ƒ‚[ƒ‹ƒX
---track0:XƒTƒCƒY,0,100,30,1
---track1:‰æ–Ê‚‚³,0,3000,1080,1
---track2:ŠÔ,0,3,0,1
---dialog:F/col,color=0xffffff;Ôü/chk,red=0;
+@ãƒ¢ãƒ¼ãƒ«ã‚¹
+--track0:Xã‚µã‚¤ã‚º,0,100,30,1
+--track1:ç”»é¢é«˜ã•,0,3000,1080,1
+--track2:æ™‚é–“,0,3,0,1
+--dialog:è‰²/col,color=0xffffff;èµ¤ç·š/chk,red=0;
 
 function rounded_rect(x, y, xsize, ysize, radius, color)
-  obj.load("figure", "lŠpŒ`", color, 100)
-  obj.effect("ƒŠƒTƒCƒY", "X", xsize - (radius * 2), "Y", ysize, "ƒhƒbƒg”‚ÅƒTƒCƒYw’è", 1)
+  obj.load("figure", "å››è§’å½¢", color, 100)
+  obj.effect("ãƒªã‚µã‚¤ã‚º", "X", xsize - (radius * 2), "Y", ysize, "ãƒ‰ãƒƒãƒˆæ•°ã§ã‚µã‚¤ã‚ºæŒ‡å®š", 1)
   obj.draw(x, y)
-  obj.load("figure", "lŠpŒ`", color, 100)
-  obj.effect("ƒŠƒTƒCƒY", "X", xsize, "Y", ysize - (radius * 2), "ƒhƒbƒg”‚ÅƒTƒCƒYw’è", 1)
+  obj.load("figure", "å››è§’å½¢", color, 100)
+  obj.effect("ãƒªã‚µã‚¤ã‚º", "X", xsize, "Y", ysize - (radius * 2), "ãƒ‰ãƒƒãƒˆæ•°ã§ã‚µã‚¤ã‚ºæŒ‡å®š", 1)
   obj.draw(x, y)
-  obj.load("figure", "‰~", color, radius * 2)
-  obj.draw(x - (xsize / 2) + radius, y - (ysize / 2) + radius) --¶ã
-  obj.draw(x + (xsize / 2) - radius, y - (ysize / 2) + radius) --‰Eã
-  obj.draw(x - (xsize / 2) + radius, y + (ysize / 2) - radius) --¶‰º
-  obj.draw(x + (xsize / 2) - radius, y + (ysize / 2) - radius) --‰E‰º
+  obj.load("figure", "å††", color, radius * 2)
+  obj.draw(x - (xsize / 2) + radius, y - (ysize / 2) + radius) --å·¦ä¸Š
+  obj.draw(x + (xsize / 2) - radius, y - (ysize / 2) + radius) --å³ä¸Š
+  obj.draw(x - (xsize / 2) + radius, y + (ysize / 2) - radius) --å·¦ä¸‹
+  obj.draw(x + (xsize / 2) - radius, y + (ysize / 2) - radius) --å³ä¸‹
 end
 
 obj.setoption("drawtarget", "tempbuffer", obj.track0, obj.track1)
@@ -27,7 +27,7 @@ if obj.track2 == 0 then
     rounded_rect(0, 0, obj.track0, obj.track1 / 108, 3, 0xff0000)
   end
 elseif obj.track2 == 1 then
-  --}Œ`‚Ì‚‚³‚ª‘O‚ÆŒã‚Å•Ï‚í‚Á‚Ä‚ÄƒLƒŒ‚»‚¤
+  --å›³å½¢ã®é«˜ã•ãŒå‰ã¨å¾Œã§å¤‰ã‚ã£ã¦ã¦ã‚­ãƒ¬ãã†
   rounded_rect(0, -obj.track1 * (61/216), obj.track0, obj.track1 * (13/54), 3, color)
   rounded_rect(0, obj.track1 * (61/216), obj.track0, obj.track1 * (13/54), 3, color)
 elseif obj.track2 == 2 then
@@ -53,54 +53,54 @@ obj.setoption("drawtarget", "framebuffer")
 obj.load("tempbuffer")
 
 
-@...ƒpƒ‹ƒX
---track0:ƒTƒCƒY,0,1000,40,1
---track1:c‰¡”ä,-100,100,0,1
---track2:ƒV[ƒh,-1000,1000,0,1
---dialog:F1/col,color1=0x006bff;F2/col,color2=0x00fbff;F3/col,color3=0x91fffc;F4/col,color4=0x1cd9ff;}Œ`/fig,f="‰~";
+@...ãƒ‘ãƒ«ã‚¹
+--track0:ã‚µã‚¤ã‚º,0,1000,40,1
+--track1:ç¸¦æ¨ªæ¯”,-100,100,0,1
+--track2:ã‚·ãƒ¼ãƒ‰,-1000,1000,0,1
+--dialog:è‰²1/col,color1=0x006bff;è‰²2/col,color2=0x00fbff;è‰²3/col,color3=0x91fffc;è‰²4/col,color4=0x1cd9ff;å›³å½¢/fig,f="å††";
 
 scale=obj.track0 / 40
 fscale=obj.framerate/60
 obj.load("figure",f,color1,obj.track0)
 obj.aspect = obj.track1/100
-obj.effect("Šg‘å—¦","Šg‘å—¦",275)
-obj.effect("‚Ú‚©‚µ","”ÍˆÍ",23*scale)
-obj.effect("ƒmƒCƒY","‹­‚³",52,"•Ï‰»‘¬“x",52*fscale,"üŠúX",2/scale,"üŠúY",2/scale,"seed",obj.track2)
+obj.effect("æ‹¡å¤§ç‡","æ‹¡å¤§ç‡",275)
+obj.effect("ã¼ã‹ã—","ç¯„å›²",23*scale)
+obj.effect("ãƒã‚¤ã‚º","å¼·ã•",52,"å¤‰åŒ–é€Ÿåº¦",52*fscale,"å‘¨æœŸX",2/scale,"å‘¨æœŸY",2/scale,"seed",obj.track2)
 obj.draw()
 
 obj.load("figure",f,color2,obj.track0 * 1.375)
 obj.aspect = obj.track1/100
-obj.effect("ƒOƒ[","‹­‚³",26,"ŠgU",37*scale,"‚Ú‚©‚µ",0)
-obj.effect("‚Ú‚©‚µ","”ÍˆÍ",18*scale)
-obj.effect("ƒmƒCƒY","•Ï‰»‘¬“x",33*fscale,"üŠúX",0.2/scale,"üŠúY",0.2/scale,"‚µ‚«‚¢’l",45,"seed",obj.track2)
+obj.effect("ã‚°ãƒ­ãƒ¼","å¼·ã•",26,"æ‹¡æ•£",37*scale,"ã¼ã‹ã—",0)
+obj.effect("ã¼ã‹ã—","ç¯„å›²",18*scale)
+obj.effect("ãƒã‚¤ã‚º","å¤‰åŒ–é€Ÿåº¦",33*fscale,"å‘¨æœŸX",0.2/scale,"å‘¨æœŸY",0.2/scale,"ã—ãã„å€¤",45,"seed",obj.track2)
 obj.draw()
 
 obj.load("figure",f,color3,obj.track0,4*scale)
 obj.aspect = obj.track1/100
-obj.effect("ƒ‰ƒXƒ^[","‰¡•",7*scale,"‚‚³",15*scale,"cƒ‰ƒXƒ^[",0,"ƒ‰ƒ“ƒ_ƒ€U•",1)
-obj.effect("ƒ‰ƒXƒ^[","‰¡•",7*scale,"‚‚³",15*scale,"cƒ‰ƒXƒ^[",1,"ƒ‰ƒ“ƒ_ƒ€U•",1)
-obj.effect("ƒOƒ[","‹­‚³",34,"ŠgU",42,"‚µ‚«‚¢’l",40,"color",color4,"‚Ú‚©‚µ",1,"no_color",0)
+obj.effect("ãƒ©ã‚¹ã‚¿ãƒ¼","æ¨ªå¹…",7*scale,"é«˜ã•",15*scale,"ç¸¦ãƒ©ã‚¹ã‚¿ãƒ¼",0,"ãƒ©ãƒ³ãƒ€ãƒ æŒ¯å¹…",1)
+obj.effect("ãƒ©ã‚¹ã‚¿ãƒ¼","æ¨ªå¹…",7*scale,"é«˜ã•",15*scale,"ç¸¦ãƒ©ã‚¹ã‚¿ãƒ¼",1,"ãƒ©ãƒ³ãƒ€ãƒ æŒ¯å¹…",1)
+obj.effect("ã‚°ãƒ­ãƒ¼","å¼·ã•",34,"æ‹¡æ•£",42,"ã—ãã„å€¤",40,"color",color4,"ã¼ã‹ã—",1,"no_color",0)
 obj.draw()
 
-@...ƒo[(–¢Š®¬)
---II–¢Š®¬IIII–¢Š®¬IIII–¢Š®¬IIII–¢Š®¬IIII–¢Š®¬IIII–¢Š®¬IIII–¢Š®¬IIII–¢Š®¬IIII–¢Š®¬II
---track0:ƒOƒ‰ƒf•,0,1000,175,1
---track1:Œõ‹­‚³,0,300,52,1
---track2:‘¬“x,0,400,1,0.1
---dialog:F/col,color=0xff0000;”’‚Ì‚İ/chk,white=0;
+@...ãƒãƒ¼(æœªå®Œæˆ)
+--ï¼ï¼æœªå®Œæˆï¼ï¼ï¼ï¼æœªå®Œæˆï¼ï¼ï¼ï¼æœªå®Œæˆï¼ï¼ï¼ï¼æœªå®Œæˆï¼ï¼ï¼ï¼æœªå®Œæˆï¼ï¼ï¼ï¼æœªå®Œæˆï¼ï¼ï¼ï¼æœªå®Œæˆï¼ï¼ï¼ï¼æœªå®Œæˆï¼ï¼ï¼ï¼æœªå®Œæˆï¼ï¼
+--track0:ã‚°ãƒ©ãƒ‡å¹…,0,1000,175,1
+--track1:å…‰å¼·ã•,0,300,52,1
+--track2:é€Ÿåº¦,0,400,1,0.1
+--dialog:è‰²/col,color=0xff0000;ç™½ã®ã¿/chk,white=0;
 
 local scale=obj.screen_h / 720
 local fscale=obj.framerate / 60
-obj.load("figure","lŠpŒ`",0x000000,obj.screen_h)
-obj.effect("ƒOƒ‰ƒf[ƒVƒ‡ƒ“","•",obj.track0,"no_color",0,"no_color2",0,"Šp“x",-90,"color",color,"color2",0x000000,"type",3)
-obj.effect("ƒmƒCƒY","‹­‚³",34,"‘¬“xY",obj.track2 * fscale,"•Ï‰»‘¬“x",2.1 * obj.track2 * fscale,"üŠúX",2/scale,"üŠúY",3.13/scale)
-obj.effect("ƒOƒ[","‹­‚³",obj.track1,"ŠgU",39,"no_color",0,"color",color)
+obj.load("figure","å››è§’å½¢",0x000000,obj.screen_h)
+obj.effect("ã‚°ãƒ©ãƒ‡ãƒ¼ã‚·ãƒ§ãƒ³","å¹…",obj.track0,"no_color",0,"no_color2",0,"è§’åº¦",-90,"color",color,"color2",0x000000,"type",3)
+obj.effect("ãƒã‚¤ã‚º","å¼·ã•",34,"é€Ÿåº¦Y",obj.track2 * fscale,"å¤‰åŒ–é€Ÿåº¦",2.1 * obj.track2 * fscale,"å‘¨æœŸX",2/scale,"å‘¨æœŸY",3.13/scale)
+obj.effect("ã‚°ãƒ­ãƒ¼","å¼·ã•",obj.track1,"æ‹¡æ•£",39,"no_color",0,"color",color)
 
-@•\ / —  ƒŠƒgƒ}ƒX
---track0:XƒTƒCƒY,0,1080,48,0.1
---track1:YƒTƒCƒY,0,1080,240,0.1
---track2:ŠÔ,1,60,1,0.1
---dialog:ŠgU,kak=70;ƒ‰ƒCƒ“•,l=1;F/col,color=0x00ffff;
+@è¡¨ / è£ ãƒªãƒˆãƒã‚¹
+--track0:Xã‚µã‚¤ã‚º,0,1080,48,0.1
+--track1:Yã‚µã‚¤ã‚º,0,1080,240,0.1
+--track2:æ™‚é–“,1,60,1,0.1
+--dialog:æ‹¡æ•£,kak=70;ãƒ©ã‚¤ãƒ³å¹…,l=1;è‰²/col,color=0x00ffff;
 
 local aspect = -1 + (obj.track1 / obj.track0)
 local size = obj.track0
@@ -110,21 +110,21 @@ if obj.track0 < obj.track1 then
 end
 local time = obj.track2 - 1
 print(aspect)
-obj.load("figure","lŠpŒ`",color,size,4000,aspect)
-obj.effect("ŠgUŒõ","‹­‚³",100,"ŠgU",kak + (500 - kak) * (time / 60))
+obj.load("figure","å››è§’å½¢",color,size,4000,aspect)
+obj.effect("æ‹¡æ•£å…‰","å¼·ã•",100,"æ‹¡æ•£",kak + (500 - kak) * (time / 60))
 obj.alpha=1 - (obj.track2 / 60)
 obj.draw()
 
-obj.load("figure","lŠpŒ`",0xffffff,size + 1,1,aspect)
+obj.load("figure","å››è§’å½¢",0xffffff,size + 1,1,aspect)
 obj.alpha=1 - (obj.track2 / 60)
-obj.effect("ƒOƒ[","ŠgU",kak * 1.14583 - (kak * 1.14583 * (time / 60)))
+obj.effect("ã‚°ãƒ­ãƒ¼","æ‹¡æ•£",kak * 1.14583 - (kak * 1.14583 * (time / 60)))
 obj.draw()
 
-@ƒAƒuƒWƒF”g–ä
---track0:”¼Œa,0,5000,100,1
---track1:ƒ‰ƒCƒ“•,0,100,10,1
---track2:ƒ‰ƒXƒ^[•, 0, 100, 50, 1
---dialog:F1/col,col1=0x3535ce;F2/col,col2=0x6363ff;F3/col,col3=0x9e9eff;}Œ`/fig,figure="‰~";ƒV[ƒh/seed,seed=0;
+@ã‚¢ãƒ–ã‚¸ã‚§æ³¢ç´‹
+--track0:åŠå¾„,0,5000,100,1
+--track1:ãƒ©ã‚¤ãƒ³å¹…,0,100,10,1
+--track2:ãƒ©ã‚¹ã‚¿ãƒ¼å¹…, 0, 100, 50, 1
+--dialog:è‰²1/col,col1=0x3535ce;è‰²2/col,col2=0x6363ff;è‰²3/col,col3=0x9e9eff;å›³å½¢/fig,figure="å††";ã‚·ãƒ¼ãƒ‰/seed,seed=0;
 
 local radius = obj.track0
 local line = obj.track1
@@ -137,78 +137,78 @@ if radius < line * 10 + 30 then
   print(x)
 end
 if true then
---ˆê‘w–Ú(‚Ú‚©‚µ‚½‰~)
+--ä¸€å±¤ç›®(ã¼ã‹ã—ãŸå††)
 obj.load("figure",figure,col1, radius + line * 9, line * 8)
-obj.effect("ƒ‰ƒXƒ^[","‰¡•",raster,"‚‚³",80,"üŠú",1,"ƒ‰ƒ“ƒ_ƒ€U•",1)
-obj.effect("ƒ‰ƒXƒ^[","‰¡•",raster,"‚‚³",80,"üŠú",1,"cƒ‰ƒXƒ^[",1,"ƒ‰ƒ“ƒ_ƒ€U•",1)
-obj.effect("ƒmƒCƒY","‹­‚³",10,"‘¬“xY",0,"•Ï‰»‘¬“x",4,"üŠúX",1,"üŠúY",1,"‚µ‚«‚¢’l",0,"ƒV[ƒh",seed)
-obj.effect("‚Ú‚©‚µ","”ÍˆÍ",100)
+obj.effect("ãƒ©ã‚¹ã‚¿ãƒ¼","æ¨ªå¹…",raster,"é«˜ã•",80,"å‘¨æœŸ",1,"ãƒ©ãƒ³ãƒ€ãƒ æŒ¯å¹…",1)
+obj.effect("ãƒ©ã‚¹ã‚¿ãƒ¼","æ¨ªå¹…",raster,"é«˜ã•",80,"å‘¨æœŸ",1,"ç¸¦ãƒ©ã‚¹ã‚¿ãƒ¼",1,"ãƒ©ãƒ³ãƒ€ãƒ æŒ¯å¹…",1)
+obj.effect("ãƒã‚¤ã‚º","å¼·ã•",10,"é€Ÿåº¦Y",0,"å¤‰åŒ–é€Ÿåº¦",4,"å‘¨æœŸX",1,"å‘¨æœŸY",1,"ã—ãã„å€¤",0,"ã‚·ãƒ¼ãƒ‰",seed)
+obj.effect("ã¼ã‹ã—","ç¯„å›²",100)
 obj.draw()
 end
 
---2‘w–Ú(…F)
+--2å±¤ç›®(æ°´è‰²)
 obj.load("figure",figure,col2, radius + (line * 0.6),line * 1.2)
-obj.effect("ƒ‰ƒXƒ^[", "‰¡•",raster2,"‚‚³",200,"üŠú",2,"ƒ‰ƒ“ƒ_ƒ€U•",1)
-obj.effect("ƒ‰ƒXƒ^[", "‰¡•",raster2,"‚‚³",200,"üŠú",2,"cƒ‰ƒXƒ^[",1,"ƒ‰ƒ“ƒ_ƒ€U•",1)
-obj.effect("ƒ‰ƒXƒ^[", "‰¡•",raster2 * 0.4,"‚‚³",50,"üŠú",6,"ƒ‰ƒ“ƒ_ƒ€U•",1)
-obj.effect("ƒ‰ƒXƒ^[", "‰¡•",raster2 * 0.4,"‚‚³",50,"üŠú",6,"cƒ‰ƒXƒ^[",1,"ƒ‰ƒ“ƒ_ƒ€U•",1)
-obj.effect("ƒmƒCƒY", "‹­‚³",100,"‘¬“xY",-1.5,"•Ï‰»‘¬“x",2.1,"üŠúX",2,"üŠúY",3.13,"ƒV[ƒh",seed)
-obj.effect("ƒOƒ[", "‹­‚³",60,"ŠgU",30,"‚µ‚«‚¢’l",5,"‚Ú‚©‚µ",10,"color",col2, "no_color",0)
+obj.effect("ãƒ©ã‚¹ã‚¿ãƒ¼", "æ¨ªå¹…",raster2,"é«˜ã•",200,"å‘¨æœŸ",2,"ãƒ©ãƒ³ãƒ€ãƒ æŒ¯å¹…",1)
+obj.effect("ãƒ©ã‚¹ã‚¿ãƒ¼", "æ¨ªå¹…",raster2,"é«˜ã•",200,"å‘¨æœŸ",2,"ç¸¦ãƒ©ã‚¹ã‚¿ãƒ¼",1,"ãƒ©ãƒ³ãƒ€ãƒ æŒ¯å¹…",1)
+obj.effect("ãƒ©ã‚¹ã‚¿ãƒ¼", "æ¨ªå¹…",raster2 * 0.4,"é«˜ã•",50,"å‘¨æœŸ",6,"ãƒ©ãƒ³ãƒ€ãƒ æŒ¯å¹…",1)
+obj.effect("ãƒ©ã‚¹ã‚¿ãƒ¼", "æ¨ªå¹…",raster2 * 0.4,"é«˜ã•",50,"å‘¨æœŸ",6,"ç¸¦ãƒ©ã‚¹ã‚¿ãƒ¼",1,"ãƒ©ãƒ³ãƒ€ãƒ æŒ¯å¹…",1)
+obj.effect("ãƒã‚¤ã‚º", "å¼·ã•",100,"é€Ÿåº¦Y",-1.5,"å¤‰åŒ–é€Ÿåº¦",2.1,"å‘¨æœŸX",2,"å‘¨æœŸY",3.13,"ã‚·ãƒ¼ãƒ‰",seed)
+obj.effect("ã‚°ãƒ­ãƒ¼", "å¼·ã•",60,"æ‹¡æ•£",30,"ã—ãã„å€¤",5,"ã¼ã‹ã—",10,"color",col2, "no_color",0)
 obj.draw()
 
 
---3‘w–Ú(”’‚¢Œõ)
+--3å±¤ç›®(ç™½ã„å…‰)
 obj.load("figure",figure,0xffffff, radius + (line / 2), line)
-obj.effect("‚Ú‚©‚µ","”ÍˆÍ",5)
-obj.effect("ƒOƒ[","‹­‚³",32,"ŠgU",35 / z,"‚µ‚«‚¢’l",8,"‚Ú‚©‚µ",0,"color",col3, "no_color",0)
+obj.effect("ã¼ã‹ã—","ç¯„å›²",5)
+obj.effect("ã‚°ãƒ­ãƒ¼","å¼·ã•",32,"æ‹¡æ•£",35 / z,"ã—ãã„å€¤",8,"ã¼ã‹ã—",0,"color",col3, "no_color",0)
 obj.draw()
 if false then
 end
 
-@VHSƒGƒtƒFƒNƒg
---dialog:ƒV[ƒh1/seed1,seed1=0;ƒV[ƒh2/seed2,seed2=0;
+@VHSã‚¨ãƒ•ã‚§ã‚¯ãƒˆ
+--dialog:ã‚·ãƒ¼ãƒ‰1/seed1,seed1=0;ã‚·ãƒ¼ãƒ‰2/seed2,seed2=0;
 
--- ƒJƒ‰[ƒmƒCƒY
+-- ã‚«ãƒ©ãƒ¼ãƒã‚¤ã‚º
 obj.setoption("blend",1)
-obj.load("figure", "”wŒi", 0xff0000)
-obj.effect("ƒmƒCƒY", "•Ï‰»‘¬“x", 800, "üŠúX", 0, "üŠúY", 4, "‚µ‚«‚¢’l", 48, "seed", seed1)
+obj.load("figure", "èƒŒæ™¯", 0xff0000)
+obj.effect("ãƒã‚¤ã‚º", "å¤‰åŒ–é€Ÿåº¦", 800, "å‘¨æœŸX", 0, "å‘¨æœŸY", 4, "ã—ãã„å€¤", 48, "seed", seed1)
 obj.alpha = 0.04
 obj.draw()
-obj.load("figure", "”wŒi", 0x00ff00)
-obj.effect("ƒmƒCƒY", "•Ï‰»‘¬“x", 800, "üŠúX", 0, "üŠúY", 4, "‚µ‚«‚¢’l", 48, "seed", seed1 * 555)
+obj.load("figure", "èƒŒæ™¯", 0x00ff00)
+obj.effect("ãƒã‚¤ã‚º", "å¤‰åŒ–é€Ÿåº¦", 800, "å‘¨æœŸX", 0, "å‘¨æœŸY", 4, "ã—ãã„å€¤", 48, "seed", seed1 * 555)
 obj.alpha = 0.04
 obj.draw()
-obj.load("figure", "”wŒi", 0x0000ff)
-obj.effect("ƒmƒCƒY", "•Ï‰»‘¬“x", 800, "üŠúX", 0, "üŠúY", 4, "‚µ‚«‚¢’l", 48, "seed", seed1 ^ seed1)
+obj.load("figure", "èƒŒæ™¯", 0x0000ff)
+obj.effect("ãƒã‚¤ã‚º", "å¤‰åŒ–é€Ÿåº¦", 800, "å‘¨æœŸX", 0, "å‘¨æœŸY", 4, "ã—ãã„å€¤", 48, "seed", seed1 ^ seed1)
 obj.alpha = 0.04
 obj.draw()
 
 obj.setoption("blend",0)
 obj.load("framebuffer")
-obj.effect("ƒNƒŠƒbƒsƒ“ƒO","‰E",10,"¶",10)
+obj.effect("ã‚¯ãƒªãƒƒãƒ”ãƒ³ã‚°","å³",10,"å·¦",10)
 obj.draw()
 
--- ƒXƒCƒbƒ`ƒ“ƒOƒmƒCƒY
+-- ã‚¹ã‚¤ãƒƒãƒãƒ³ã‚°ãƒã‚¤ã‚º
 obj.setoption("blend",1)
-obj.load("figure", "”wŒi", 0xffffff)
-obj.effect("ƒNƒŠƒbƒsƒ“ƒO","ã",311)
-obj.effect("ƒmƒCƒY", "•Ï‰»‘¬“x", 50, "üŠúX", 0.01, "üŠúY", 0.4, "‚µ‚«‚¢’l", 75, "type", 3, "seed", seed2)
-obj.effect("ƒVƒƒ[ƒv", "”ÍˆÍ", 100)
-obj.effect("ƒ‚ƒUƒCƒN", "ƒTƒCƒY", 2)
+obj.load("figure", "èƒŒæ™¯", 0xffffff)
+obj.effect("ã‚¯ãƒªãƒƒãƒ”ãƒ³ã‚°","ä¸Š",311)
+obj.effect("ãƒã‚¤ã‚º", "å¤‰åŒ–é€Ÿåº¦", 50, "å‘¨æœŸX", 0.01, "å‘¨æœŸY", 0.4, "ã—ãã„å€¤", 75, "type", 3, "seed", seed2)
+obj.effect("ã‚·ãƒ£ãƒ¼ãƒ—", "ç¯„å›²", 100)
+obj.effect("ãƒ¢ã‚¶ã‚¤ã‚¯", "ã‚µã‚¤ã‚º", 2)
 obj.draw()
 
-obj.load("figure", "”wŒi", 0xffffff)
-obj.effect("ƒNƒŠƒbƒsƒ“ƒO","ã",311)
-obj.effect("ƒmƒCƒY", "•Ï‰»‘¬“x", 50, "üŠúX", 0, "üŠúY", 0.4, "‚µ‚«‚¢’l", 84, "type", 3, "seed", seed2)
-obj.effect("ƒVƒƒ[ƒv", "”ÍˆÍ", 100)
-obj.effect("ƒ‚ƒUƒCƒN", "ƒTƒCƒY", 2)
+obj.load("figure", "èƒŒæ™¯", 0xffffff)
+obj.effect("ã‚¯ãƒªãƒƒãƒ”ãƒ³ã‚°","ä¸Š",311)
+obj.effect("ãƒã‚¤ã‚º", "å¤‰åŒ–é€Ÿåº¦", 50, "å‘¨æœŸX", 0, "å‘¨æœŸY", 0.4, "ã—ãã„å€¤", 84, "type", 3, "seed", seed2)
+obj.effect("ã‚·ãƒ£ãƒ¼ãƒ—", "ç¯„å›²", 100)
+obj.effect("ãƒ¢ã‚¶ã‚¤ã‚¯", "ã‚µã‚¤ã‚º", 2)
 obj.draw()
 
 obj.setoption("blend",0)
 obj.load("framebuffer")
-obj.effect("F’²•â³", "ƒRƒ“ƒgƒ‰ƒXƒg", 90)
-obj.effect("ƒfƒBƒXƒvƒŒƒCƒXƒƒ“ƒgƒ}ƒbƒv", "param0", 2, "‚Ú‚©‚µ", 3, "Œ³‚ÌƒTƒCƒY‚É‡‚í‚¹‚é", 1, "type", 0, "name", ":1")
-obj.effect("F‚¸‚ê", "‚¸‚ê•", 3, "Šp“x", -90, "type", 4)
-obj.effect("‚Ú‚©‚µ", "”ÍˆÍ", 1, "ƒTƒCƒYŒÅ’è", 1)
+obj.effect("è‰²èª¿è£œæ­£", "ã‚³ãƒ³ãƒˆãƒ©ã‚¹ãƒˆ", 90)
+obj.effect("ãƒ‡ã‚£ã‚¹ãƒ—ãƒ¬ã‚¤ã‚¹ãƒ¡ãƒ³ãƒˆãƒãƒƒãƒ—", "param0", 2, "ã¼ã‹ã—", 3, "å…ƒã®ã‚µã‚¤ã‚ºã«åˆã‚ã›ã‚‹", 1, "type", 0, "name", ":1")
+obj.effect("è‰²ãšã‚Œ", "ãšã‚Œå¹…", 3, "è§’åº¦", -90, "type", 4)
+obj.effect("ã¼ã‹ã—", "ç¯„å›²", 1, "ã‚µã‚¤ã‚ºå›ºå®š", 1)
 obj.draw()
 
