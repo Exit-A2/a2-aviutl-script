@@ -96,7 +96,7 @@ obj.effect("グラデーション","幅",obj.track0,"no_color",0,"no_color2",0,"
 obj.effect("ノイズ","強さ",34,"速度Y",obj.track2 * fscale,"変化速度",2.1 * obj.track2 * fscale,"周期X",2/scale,"周期Y",3.13/scale)
 obj.effect("グロー","強さ",obj.track1,"拡散",39,"no_color",0,"color",color)
 
-@表 / 裏 リトマス
+@表裏リトマス
 --track0:Xサイズ,0,1080,48,0.1
 --track1:Yサイズ,0,1080,240,0.1
 --track2:時間,1,60,1,0.1
@@ -165,7 +165,7 @@ obj.draw()
 if false then
 end
 
-@VHSエフェクト
+@VHSエフェクト(未完成)
 --dialog:シード1/seed1,seed1=0;シード2/seed2,seed2=0;
 
 -- カラーノイズ
