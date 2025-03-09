@@ -5,15 +5,15 @@
 --track3:Yずれ,-20,20,0,0.01
 
 if (obj.track0 == 0) then
-    obj.draw(0,0,0,0)
+  obj.draw(0,0,0,0)
 else
-    local zoom = obj.track1 / obj.track0 * 100
-    obj.ox = obj.track2 * zoom
-    obj.oy = obj.track3 * zoom
-    while (800 < zoom) do
-        obj.effect("拡大率", "拡大率", 200)
-        zoom = zoom / 2
-    end
+  local zoom = obj.track1 / obj.track0 * 100
+  obj.ox = obj.track2 * zoom
+  obj.oy = obj.track3 * zoom
+  while (800 < zoom) do
+    obj.effect("拡大率", "拡大率", 200)
+    zoom = zoom / 2
+  end
     obj.effect("拡大率", "拡大率", zoom)
 end
 
@@ -22,5 +22,5 @@ end
 r = obj.rand(0,1,obj.layer * obj.totalframe * obj.screen_h, math.floor(obj.frame / obj.track0))
 print(math.floor(obj.frame / obj.track0))
 if r == 0 then
-    obj.draw(0,0,0,0)
+  obj.draw(0,0,0,0)
 end

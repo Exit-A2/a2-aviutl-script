@@ -105,8 +105,8 @@ obj.effect("グロー","強さ",obj.track1,"拡散",39,"no_color",0,"color",colo
 local aspect = -1 + (obj.track1 / obj.track0)
 local size = obj.track0
 if obj.track0 < obj.track1 then
-    size = obj.track1
-    aspect = 1 - (obj.track0 / obj.track1)
+  size = obj.track1
+  aspect = 1 - (obj.track0 / obj.track1)
 end
 local time = obj.track2 - 1
 print(aspect)
@@ -136,7 +136,6 @@ if radius < line * 10 + 30 then
   raster2 = raster2 * x
   print(x)
 end
-if true then
 --一層目(ぼかした円)
 obj.load("figure",figure,col1, radius + line * 9, line * 8)
 obj.effect("ラスター","横幅",raster,"高さ",80,"周期",1,"ランダム振幅",1)
@@ -144,7 +143,6 @@ obj.effect("ラスター","横幅",raster,"高さ",80,"周期",1,"縦ラスタ�
 obj.effect("ノイズ","強さ",10,"速度Y",0,"変化速度",4,"周期X",1,"周期Y",1,"しきい値",0,"シード",seed)
 obj.effect("ぼかし","範囲",100)
 obj.draw()
-end
 
 --2層目(水色)
 obj.load("figure",figure,col2, radius + (line * 0.6),line * 1.2)
@@ -162,8 +160,6 @@ obj.load("figure",figure,0xffffff, radius + (line / 2), line)
 obj.effect("ぼかし","範囲",5)
 obj.effect("グロー","強さ",32,"拡散",35 / z,"しきい値",8,"ぼかし",0,"color",col3, "no_color",0)
 obj.draw()
-if false then
-end
 
 @VHSエフェクト(未完成)
 --dialog:シード1/seed1,seed1=0;シード2/seed2,seed2=0;
