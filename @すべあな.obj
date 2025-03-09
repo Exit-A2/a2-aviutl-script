@@ -162,7 +162,7 @@ obj.effect("グロー","強さ",32,"拡散",35 / z,"しきい値",8,"ぼかし",
 obj.draw()
 
 @VHSエフェクト(未完成)
---dialog:シード1/seed1,seed1=0;シード2/seed2,seed2=0;
+--dialog:シード1,seed1=0;シード2,seed2=0;
 
 -- カラーノイズ
 obj.setoption("blend",1)

@@ -4,7 +4,7 @@
 --track2:左,0,1000,0,1
 --track3:右,0,1000,0,1
 --check0:中心の位置を変更,0
---dialog:X倍率/xx,xx=1;Y倍率/yy,yy=1;
+--dialog:X倍率,xx=1;Y倍率,yy=1;
 local chk = 0
 if obj.check0 then
     chk = 1
