@@ -20,7 +20,6 @@ end
 @ランダム点滅
 --track0:コマ落ち,1,60,1,1
 r = obj.rand(0,1,obj.layer * obj.totalframe * obj.screen_h, math.floor(obj.frame / obj.track0))
-print(math.floor(obj.frame / obj.track0))
 if r == 0 then
   obj.draw(0,0,0,0)
 end
