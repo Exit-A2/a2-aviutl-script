@@ -5,53 +5,55 @@
 --dialog:色/col,color=0xffffff;赤線/chk,red=0;
 
 function rounded_rect(x, y, xsize, ysize, radius, color)
-  obj.load("figure", "四角形", color, 100)
-  obj.effect("リサイズ", "X", xsize - (radius * 2), "Y", ysize, "ドット数でサイズ指定", 1)
-  obj.draw(x, y)
-  obj.load("figure", "四角形", color, 100)
-  obj.effect("リサイズ", "X", xsize, "Y", ysize - (radius * 2), "ドット数でサイズ指定", 1)
-  obj.draw(x, y)
-  obj.load("figure", "円", color, radius * 2)
-  obj.draw(x - (xsize / 2) + radius, y - (ysize / 2) + radius) --左上
-  obj.draw(x + (xsize / 2) - radius, y - (ysize / 2) + radius) --右上
-  obj.draw(x - (xsize / 2) + radius, y + (ysize / 2) - radius) --左下
-  obj.draw(x + (xsize / 2) - radius, y + (ysize / 2) - radius) --右下
+    obj.load("figure", "四角形", color, 100)
+    obj.setoption("antialias", 0)
+    obj.effect("リサイズ", "X", xsize - (radius * 2), "Y", ysize, "ドット数でサイズ指定", 1)
+    obj.draw(x, y)
+    obj.load("figure", "四角形", color, 100)
+    obj.setoption("antialias", 0)
+    obj.effect("リサイズ", "X", xsize, "Y", ysize - (radius * 2), "ドット数でサイズ指定", 1)
+    obj.draw(x, y)
+    obj.load("figure", "円", color, radius * 2)
+    obj.setoption("antialias", 0)
+    obj.draw(x - (xsize / 2) + radius, y - (ysize / 2) + radius) --左上
+    obj.draw(x + (xsize / 2) - radius, y - (ysize / 2) + radius) --右上
+    obj.draw(x - (xsize / 2) + radius, y + (ysize / 2) - radius) --左下
+    obj.draw(x + (xsize / 2) - radius, y + (ysize / 2) - radius) --右下
 end
 
 obj.setoption("drawtarget", "tempbuffer", obj.track0, obj.track1)
 
 if obj.track2 == 0 then
-  rounded_rect(0, 0, obj.track0, obj.track1 * (35/108), 3, color)
+    rounded_rect(0, 0, obj.track0, obj.track1 * (35 / 108), 3, color)
 
-  if red == 1 then
-    rounded_rect(0, 0, obj.track0, obj.track1 / 108, 3, 0xff0000)
-  end
+    if red == 1 then
+        rounded_rect(0, 0, obj.track0, obj.track1 / 108, 3, 0xff0000)
+    end
 elseif obj.track2 == 1 then
-  --図形の高さが前と後で変わっててキレそう
-  rounded_rect(0, -obj.track1 * (61/216), obj.track0, obj.track1 * (13/54), 3, color)
-  rounded_rect(0, obj.track1 * (61/216), obj.track0, obj.track1 * (13/54), 3, color)
+    --図形の高さが前と後で変わっててキレそう
+    rounded_rect(0, -obj.track1 * (61 / 216), obj.track0, obj.track1 * (13 / 54), 3, color)
+    rounded_rect(0, obj.track1 * (61 / 216), obj.track0, obj.track1 * (13 / 54), 3, color)
 elseif obj.track2 == 2 then
-  rounded_rect(0, -obj.track1 * (5 / 24), obj.track0, obj.track1 / 54, 3, color)
-  rounded_rect(0, obj.track1 * (5 / 24), obj.track0, obj.track1 / 54, 3, color)
+    rounded_rect(0, -obj.track1 * (5 / 24), obj.track0, obj.track1 / 54, 3, color)
+    rounded_rect(0, obj.track1 * (5 / 24), obj.track0, obj.track1 / 54, 3, color)
 
-  rounded_rect(0, obj.track1 / 4 + 0.5, obj.track0, obj.track1 * (7 / 108), 3, color)
-  rounded_rect(0, -obj.track1 / 4 - 0.5, obj.track0, obj.track1 * (7 / 108), 3, color)
+    rounded_rect(0, obj.track1 / 4 + 0.5, obj.track0, obj.track1 * (7 / 108), 3, color)
+    rounded_rect(0, -obj.track1 / 4 - 0.5, obj.track0, obj.track1 * (7 / 108), 3, color)
 
-  rounded_rect(0, obj.track1 / 2, obj.track0, obj.track1 * (37 / 108), 3, color)
-  rounded_rect(0, -obj.track1 / 2, obj.track0, obj.track1 * (37 / 108), 3, color)
+    rounded_rect(0, obj.track1 / 2, obj.track0, obj.track1 * (37 / 108), 3, color)
+    rounded_rect(0, -obj.track1 / 2, obj.track0, obj.track1 * (37 / 108), 3, color)
 elseif obj.track2 == 3 then
-  rounded_rect(0, obj.track1 * (17 / 72), obj.track0, obj.track1 / 54, 3, color)
-  rounded_rect(0, -obj.track1 * (17 / 72), obj.track0, obj.track1 / 54, 3, color)
+    rounded_rect(0, obj.track1 * (17 / 72), obj.track0, obj.track1 / 54, 3, color)
+    rounded_rect(0, -obj.track1 * (17 / 72), obj.track0, obj.track1 / 54, 3, color)
 
-  rounded_rect(0, obj.track1 / 3, obj.track0, obj.track1 * (5 / 108), 3, color)
-  rounded_rect(0, -obj.track1 / 3, obj.track0, obj.track1 * (5 / 108), 3, color)
+    rounded_rect(0, obj.track1 / 3, obj.track0, obj.track1 * (5 / 108), 3, color)
+    rounded_rect(0, -obj.track1 / 3, obj.track0, obj.track1 * (5 / 108), 3, color)
 
-  rounded_rect(0, obj.track1 / 2, obj.track0, obj.track1 * (17 / 108), 3, color)
-  rounded_rect(0, -obj.track1 / 2, obj.track0, obj.track1 * (17 / 108), 3, color)
+    rounded_rect(0, obj.track1 / 2, obj.track0, obj.track1 * (17 / 108), 3, color)
+    rounded_rect(0, -obj.track1 / 2, obj.track0, obj.track1 * (17 / 108), 3, color)
 end
 obj.setoption("drawtarget", "framebuffer")
 obj.load("tempbuffer")
-
 
 @...パルス
 --track0:サイズ,0,1000,40,1
@@ -59,27 +61,51 @@ obj.load("tempbuffer")
 --track2:シード,-1000,1000,0,1
 --dialog:色1/col,color1=0x006bff;色2/col,color2=0x00fbff;色3/col,color3=0x91fffc;色4/col,color4=0x1cd9ff;図形/fig,f="円";
 
-scale=obj.track0 / 40
-fscale=obj.framerate/60
-obj.load("figure",f,color1,obj.track0)
-obj.aspect = obj.track1/100
-obj.effect("拡大率","拡大率",275)
-obj.effect("ぼかし","範囲",23*scale)
-obj.effect("ノイズ","強さ",52,"変化速度",52*fscale,"周期X",2/scale,"周期Y",2/scale,"seed",obj.track2)
+scale = obj.track0 / 40
+fscale = obj.framerate / 60
+obj.load("figure", f, color1, obj.track0)
+obj.aspect = obj.track1 / 100
+obj.effect("拡大率", "拡大率", 275)
+obj.effect("ぼかし", "範囲", 23 * scale)
+obj.effect(
+    "ノイズ",
+    "強さ",
+    52,
+    "変化速度",
+    52 * fscale,
+    "周期X",
+    2 / scale,
+    "周期Y",
+    2 / scale,
+    "seed",
+    obj.track2
+)
 obj.draw()
 
-obj.load("figure",f,color2,obj.track0 * 1.375)
-obj.aspect = obj.track1/100
-obj.effect("グロー","強さ",26,"拡散",37*scale,"ぼかし",0)
-obj.effect("ぼかし","範囲",18*scale)
-obj.effect("ノイズ","変化速度",33*fscale,"周期X",0.2/scale,"周期Y",0.2/scale,"しきい値",45,"seed",obj.track2)
+obj.load("figure", f, color2, obj.track0 * 1.375)
+obj.aspect = obj.track1 / 100
+obj.effect("グロー", "強さ", 26, "拡散", 37 * scale, "ぼかし", 0)
+obj.effect("ぼかし", "範囲", 18 * scale)
+obj.effect(
+    "ノイズ",
+    "変化速度",
+    33 * fscale,
+    "周期X",
+    0.2 / scale,
+    "周期Y",
+    0.2 / scale,
+    "しきい値",
+    45,
+    "seed",
+    obj.track2
+)
 obj.draw()
 
-obj.load("figure",f,color3,obj.track0,4*scale)
-obj.aspect = obj.track1/100
-obj.effect("ラスター","横幅",7*scale,"高さ",15*scale,"縦ラスター",0,"ランダム振幅",1)
-obj.effect("ラスター","横幅",7*scale,"高さ",15*scale,"縦ラスター",1,"ランダム振幅",1)
-obj.effect("グロー","強さ",34,"拡散",42,"しきい値",40,"color",color4,"ぼかし",1,"no_color",0)
+obj.load("figure", f, color3, obj.track0, 4 * scale)
+obj.aspect = obj.track1 / 100
+obj.effect("ラスター", "横幅", 7 * scale, "高さ", 15 * scale, "縦ラスター", 0, "ランダム振幅", 1)
+obj.effect("ラスター", "横幅", 7 * scale, "高さ", 15 * scale, "縦ラスター", 1, "ランダム振幅", 1)
+obj.effect("グロー", "強さ", 34, "拡散", 42, "しきい値", 40, "color", color4, "ぼかし", 1, "no_color", 0)
 obj.draw()
 
 @...バー(未完成)
@@ -89,12 +115,40 @@ obj.draw()
 --track2:速度,0,400,1,0.1
 --dialog:色/col,color=0xff0000;白のみ/chk,white=0;
 
-local scale=obj.screen_h / 720
-local fscale=obj.framerate / 60
-obj.load("figure","四角形",0x000000,obj.screen_h)
-obj.effect("グラデーション","幅",obj.track0,"no_color",0,"no_color2",0,"角度",-90,"color",color,"color2",0x000000,"type",3)
-obj.effect("ノイズ","強さ",34,"速度Y",obj.track2 * fscale,"変化速度",2.1 * obj.track2 * fscale,"周期X",2/scale,"周期Y",3.13/scale)
-obj.effect("グロー","強さ",obj.track1,"拡散",39,"no_color",0,"color",color)
+local scale = obj.screen_h / 720
+local fscale = obj.framerate / 60
+obj.load("figure", "四角形", 0x000000, obj.screen_h)
+obj.effect(
+    "グラデーション",
+    "幅",
+    obj.track0,
+    "no_color",
+    0,
+    "no_color2",
+    0,
+    "角度",
+    -90,
+    "color",
+    color,
+    "color2",
+    0x000000,
+    "type",
+    3
+)
+obj.effect(
+    "ノイズ",
+    "強さ",
+    34,
+    "速度Y",
+    obj.track2 * fscale,
+    "変化速度",
+    2.1 * obj.track2 * fscale,
+    "周期X",
+    2 / scale,
+    "周期Y",
+    3.13 / scale
+)
+obj.effect("グロー", "強さ", obj.track1, "拡散", 39, "no_color", 0, "color", color)
 
 @表裏リトマス
 --track0:Xサイズ,0,1080,48,0.1
@@ -105,19 +159,18 @@ obj.effect("グロー","強さ",obj.track1,"拡散",39,"no_color",0,"color",colo
 local aspect = -1 + (obj.track1 / obj.track0)
 local size = obj.track0
 if obj.track0 < obj.track1 then
-  size = obj.track1
-  aspect = 1 - (obj.track0 / obj.track1)
+    size = obj.track1
+    aspect = 1 - (obj.track0 / obj.track1)
 end
 local time = obj.track2 - 1
-print(aspect)
-obj.load("figure","四角形",color,size,4000,aspect)
-obj.effect("拡散光","強さ",100,"拡散",kak + (500 - kak) * (time / 60))
-obj.alpha=1 - (obj.track2 / 60)
+obj.load("figure", "四角形", color, size, 4000, aspect)
+obj.effect("拡散光", "強さ", 100, "拡散", kak + (500 - kak) * (time / 60))
+obj.alpha = 1 - (obj.track2 / 60)
 obj.draw()
 
-obj.load("figure","四角形",0xffffff,size + 1,1,aspect)
-obj.alpha=1 - (obj.track2 / 60)
-obj.effect("グロー","拡散",kak * 1.14583 - (kak * 1.14583 * (time / 60)))
+obj.load("figure", "四角形", 0xffffff, size + 1, 1, aspect)
+obj.alpha = 1 - (obj.track2 / 60)
+obj.effect("グロー", "拡散", kak * 1.14583 - (kak * 1.14583 * (time / 60)))
 obj.draw()
 
 @アブジェ波紋
@@ -132,31 +185,71 @@ local raster = obj.track2
 local raster2 = raster * 0.8
 
 if radius < line * 10 + 30 then
-  local x = radius / (line * 10 + 30)
-  raster2 = raster2 * x
-  print(x)
+    local x = radius / (line * 10 + 30)
+    raster2 = raster2 * x
 end
 --一層目(ぼかした円)
-obj.load("figure",figure,col1, radius + line * 9, line * 8)
-obj.effect("ラスター","横幅",raster,"高さ",80,"周期",1,"ランダム振幅",1)
-obj.effect("ラスター","横幅",raster,"高さ",80,"周期",1,"縦ラスター",1,"ランダム振幅",1)
-obj.effect("ノイズ","強さ",10,"速度Y",0,"変化速度",4,"周期X",1,"周期Y",1,"しきい値",0,"シード",seed)
-obj.effect("ぼかし","範囲",100)
+obj.load("figure", figure, col1, radius + line * 9, line * 8)
+obj.effect("ラスター", "横幅", raster, "高さ", 80, "周期", 1, "ランダム振幅", 1)
+obj.effect("ラスター", "横幅", raster, "高さ", 80, "周期", 1, "縦ラスター", 1, "ランダム振幅", 1)
+obj.effect(
+    "ノイズ",
+    "強さ",
+    10,
+    "速度Y",
+    0,
+    "変化速度",
+    4,
+    "周期X",
+    1,
+    "周期Y",
+    1,
+    "しきい値",
+    0,
+    "シード",
+    seed
+)
+obj.effect("ぼかし", "範囲", 100)
 obj.draw()
 
 --2層目(水色)
-obj.load("figure",figure,col2, radius + (line * 0.6),line * 1.2)
-obj.effect("ラスター", "横幅",raster2,"高さ",200,"周期",2,"ランダム振幅",1)
-obj.effect("ラスター", "横幅",raster2,"高さ",200,"周期",2,"縦ラスター",1,"ランダム振幅",1)
-obj.effect("ラスター", "横幅",raster2 * 0.4,"高さ",50,"周期",6,"ランダム振幅",1)
-obj.effect("ラスター", "横幅",raster2 * 0.4,"高さ",50,"周期",6,"縦ラスター",1,"ランダム振幅",1)
-obj.effect("ノイズ", "強さ",100,"速度Y",-1.5,"変化速度",2.1,"周期X",2,"周期Y",3.13,"シード",seed)
-obj.effect("グロー", "強さ",60,"拡散",30,"しきい値",5,"ぼかし",10,"color",col2, "no_color",0)
+obj.load("figure", figure, col2, radius + (line * 0.6), line * 1.2)
+obj.effect("ラスター", "横幅", raster2, "高さ", 200, "周期", 2, "ランダム振幅", 1)
+obj.effect("ラスター", "横幅", raster2, "高さ", 200, "周期", 2, "縦ラスター", 1, "ランダム振幅", 1)
+obj.effect("ラスター", "横幅", raster2 * 0.4, "高さ", 50, "周期", 6, "ランダム振幅", 1)
+obj.effect(
+    "ラスター",
+    "横幅",
+    raster2 * 0.4,
+    "高さ",
+    50,
+    "周期",
+    6,
+    "縦ラスター",
+    1,
+    "ランダム振幅",
+    1
+)
+obj.effect(
+    "ノイズ",
+    "強さ",
+    100,
+    "速度Y",
+    -1.5,
+    "変化速度",
+    2.1,
+    "周期X",
+    2,
+    "周期Y",
+    3.13,
+    "シード",
+    seed
+)
+obj.effect("グロー", "強さ", 60, "拡散", 30, "しきい値", 5, "ぼかし", 10, "color", col2, "no_color", 0)
 obj.draw()
 
-
 --3層目(白い光)
-obj.load("figure",figure,0xffffff, radius + (line / 2), line)
-obj.effect("ぼかし","範囲",5)
-obj.effect("グロー","強さ",32,"拡散",35 / z,"しきい値",8,"ぼかし",0,"color",col3, "no_color",0)
+obj.load("figure", figure, 0xffffff, radius + (line / 2), line)
+obj.effect("ぼかし", "範囲", 5)
+obj.effect("グロー", "強さ", 32, "拡散", 35 / z, "しきい値", 8, "ぼかし", 0, "color", col3, "no_color", 0)
 obj.draw()
