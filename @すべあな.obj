@@ -67,38 +67,14 @@ obj.load("figure", f, color1, obj.track0)
 obj.aspect = obj.track1 / 100
 obj.effect("拡大率", "拡大率", 275)
 obj.effect("ぼかし", "範囲", 23 * scale)
-obj.effect(
-    "ノイズ",
-    "強さ",
-    52,
-    "変化速度",
-    52 * fscale,
-    "周期X",
-    2 / scale,
-    "周期Y",
-    2 / scale,
-    "seed",
-    obj.track2
-)
+obj.effect("ノイズ", "強さ", 52, "変化速度", 52 * fscale, "周期X", 2 / scale, "周期Y", 2 / scale, "seed", obj.track2)
 obj.draw()
 
 obj.load("figure", f, color2, obj.track0 * 1.375)
 obj.aspect = obj.track1 / 100
 obj.effect("グロー", "強さ", 26, "拡散", 37 * scale, "ぼかし", 0)
 obj.effect("ぼかし", "範囲", 18 * scale)
-obj.effect(
-    "ノイズ",
-    "変化速度",
-    33 * fscale,
-    "周期X",
-    0.2 / scale,
-    "周期Y",
-    0.2 / scale,
-    "しきい値",
-    45,
-    "seed",
-    obj.track2
-)
+obj.effect("ノイズ", "変化速度", 33 * fscale, "周期X", 0.2 / scale, "周期Y", 0.2 / scale, "しきい値", 45, "seed", obj.track2)
 obj.draw()
 
 obj.load("figure", f, color3, obj.track0, 4 * scale)
@@ -118,36 +94,8 @@ obj.draw()
 local scale = obj.screen_h / 720
 local fscale = obj.framerate / 60
 obj.load("figure", "四角形", 0x000000, obj.screen_h)
-obj.effect(
-    "グラデーション",
-    "幅",
-    obj.track0,
-    "no_color",
-    0,
-    "no_color2",
-    0,
-    "角度",
-    -90,
-    "color",
-    color,
-    "color2",
-    0x000000,
-    "type",
-    3
-)
-obj.effect(
-    "ノイズ",
-    "強さ",
-    34,
-    "速度Y",
-    obj.track2 * fscale,
-    "変化速度",
-    2.1 * obj.track2 * fscale,
-    "周期X",
-    2 / scale,
-    "周期Y",
-    3.13 / scale
-)
+obj.effect("グラデーション", "幅", obj.track0, "no_color", 0, "no_color2", 0, "角度", -90, "color", color, "color2", 0x000000, "type", 3)
+obj.effect("ノイズ", "強さ", 34, "速度Y", obj.track2 * fscale, "変化速度", 2.1 * obj.track2 * fscale, "周期X", 2 / scale, "周期Y", 3.13 / scale)
 obj.effect("グロー", "強さ", obj.track1, "拡散", 39, "no_color", 0, "color", color)
 
 @表裏リトマス
@@ -192,23 +140,7 @@ end
 obj.load("figure", figure, col1, radius + line * 9, line * 8)
 obj.effect("ラスター", "横幅", raster, "高さ", 80, "周期", 1, "ランダム振幅", 1)
 obj.effect("ラスター", "横幅", raster, "高さ", 80, "周期", 1, "縦ラスター", 1, "ランダム振幅", 1)
-obj.effect(
-    "ノイズ",
-    "強さ",
-    10,
-    "速度Y",
-    0,
-    "変化速度",
-    4,
-    "周期X",
-    1,
-    "周期Y",
-    1,
-    "しきい値",
-    0,
-    "シード",
-    seed
-)
+obj.effect("ノイズ", "強さ", 10, "速度Y", 0, "変化速度", 4, "周期X", 1, "周期Y", 1, "しきい値", 0, "シード", seed)
 obj.effect("ぼかし", "範囲", 100)
 obj.draw()
 
@@ -217,34 +149,8 @@ obj.load("figure", figure, col2, radius + (line * 0.6), line * 1.2)
 obj.effect("ラスター", "横幅", raster2, "高さ", 200, "周期", 2, "ランダム振幅", 1)
 obj.effect("ラスター", "横幅", raster2, "高さ", 200, "周期", 2, "縦ラスター", 1, "ランダム振幅", 1)
 obj.effect("ラスター", "横幅", raster2 * 0.4, "高さ", 50, "周期", 6, "ランダム振幅", 1)
-obj.effect(
-    "ラスター",
-    "横幅",
-    raster2 * 0.4,
-    "高さ",
-    50,
-    "周期",
-    6,
-    "縦ラスター",
-    1,
-    "ランダム振幅",
-    1
-)
-obj.effect(
-    "ノイズ",
-    "強さ",
-    100,
-    "速度Y",
-    -1.5,
-    "変化速度",
-    2.1,
-    "周期X",
-    2,
-    "周期Y",
-    3.13,
-    "シード",
-    seed
-)
+obj.effect("ラスター", "横幅", raster2 * 0.4, "高さ", 50, "周期", 6, "縦ラスター", 1, "ランダム振幅", 1)
+obj.effect("ノイズ", "強さ", 100, "速度Y", -1.5, "変化速度", 2.1, "周期X", 2, "周期Y", 3.13, "シード", seed)
 obj.effect("グロー", "強さ", 60, "拡散", 30, "しきい値", 5, "ぼかし", 10, "color", col2, "no_color", 0)
 obj.draw()
 
