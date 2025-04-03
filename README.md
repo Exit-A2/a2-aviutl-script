@@ -2,7 +2,7 @@
  A2が作ったAviUtlのスクリプトやツールをまとめます
 ## 使い方
 スクリプトファイルの使い方については[こちら](https://scrapbox.io/aviutl/スクリプトの導入方法)を見てください。<br>
-exoファイルは拡張編集のウィンドウにドラッグ&ドロップすることで使えます。
+exoファイルは拡張編集のウィンドウにドラッグ&ドロップすることで使えます。<br>
 exeファイルは実行ファイルなので、ダブルクリックすれば開けます。
 ## スクリプト一覧
 ### @A2.anm
@@ -37,3 +37,8 @@ exeファイルは実行ファイルなので、ダブルクリックすれば�
 VHSエフェクトです。480x360用に作ってます。フレームレートを29.95fpsにするとなお良し。
 ### AviUtlひらがな小さく.exe
 AviUtl用に、ひらがなに自動で制御文字を入れてくれるアプリです。
+
+## ライセンス
+「AviUtlひらがな小さく.exe」にはCustomTkinterを使用しています。<br>
+Licensed under [MIT License](<https://github.com/TomSchimansky/CustomTkinter/blob/master/LICENSE>)<br>
+Copyright (c) 2023 Tom Schimansky
