@@ -20,3 +20,14 @@ obj.setoption("drawtarget", "tempbuffer", obj.track0, obj.track1)
 rounded_rect(0, 0, obj.track0, obj.track1, obj.track2, obj.color)
 obj.setoption("drawtarget", "framebuffer")
 obj.load("tempbuffer")
+
+@ランダム画像
+--track0:コマ落ち,1,60,1,1
+--dialog:ファイルの場所,path="C:\\";拡張子,ex="png";
+r = obj.rand(mi, ma, obj.layer * obj.totalframe * obj.screen_h, math.floor(obj.frame / obj.track0))
+obj.load("image", path .. tostring(r) .. "." .. ex)
+
+@数字から画像
+--track0:数字,0,1000,0,1
+--dialog:ファイルの場所,path="C:\\";最小値,mi=0;最大値,ma=1;拡張子,ex="png";
+obj.load("image", path .. tostring(obj.track0) .. "." .. ex)
