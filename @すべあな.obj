@@ -61,8 +61,8 @@ obj.load("tempbuffer")
 --track2:シード,-1000,1000,0,1
 --dialog:色1/col,color1=0x006bff;色2/col,color2=0x00fbff;色3/col,color3=0x91fffc;色4/col,color4=0x1cd9ff;図形/fig,f="円";
 
-scale = obj.track0 / 40
-fscale = obj.framerate / 60
+local scale = obj.track0 / 40
+local fscale = obj.framerate / 60
 obj.load("figure", f, color1, obj.track0)
 obj.aspect = obj.track1 / 100
 obj.effect("拡大率", "拡大率", 275)
