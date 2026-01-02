@@ -164,11 +164,13 @@ obj.draw()
 --track0: 量,0,20000,150,1
 --track1:速さ,0,20000,4000,0.001
 --track2:風,-10000,10000,0,0.1
---dialog:大きさ,drop_size=3.00;風バリエーション,windvar=0.0;奥行き,depth=5000;拡散,spread=6.00;長さ,length=100;色/col,color=0xffffff;透明度,alpha=25.0;シード,seed=0;
+--track3:拡散,0,90,6,0.01
+--dialog:大きさ,drop_size=3.00;風バリエーション,windvar=0.0;奥行き,depth=5000;長さ,length=100;色/col,color=0xffffff;不透明度,alpha=25.0;シード,seed=0;ドライバーをリセット/chk,reset=0;
 
 local drops = obj.track0
 local speed = obj.track1
 local wind = obj.track2
+local spread = obj.track3
 local MIN_Y_RATE = 0.8
 local MAX_Y_RATE = 1.2
 math.randomseed(seed + obj.frame * 132)
@@ -179,6 +181,19 @@ end
 
 function undef_number_check(global_number)
     return global_number+1
+end
+
+-- ドライバーをリセット
+if reset then
+    k2_driver_speed = nil
+    k2_driver_wind = nil
+end
+
+print(pcall(undef_number_check, k2_driver_speed) and pcall(undef_number_check, k2_driver_wind))
+-- ドライバーがあるか確認
+if pcall(undef_number_check, k2_driver_speed) and pcall(undef_number_check, k2_driver_wind) then
+    speed = k2_driver_speed
+    wind = k2_driver_wind
 end
 
 function random_float(min, max)
@@ -308,3 +323,13 @@ global_drops[obj.layer] = drops_table
 -- for i, drop in ipairs(drops_table) do
 --     print("x: " .. drop.x .. "\ny: " .. drop.y .. "\nz: " .. drop.z .. "\nxr: " .. drop.x_rate .. "\nyr: " .. drop.y_rate .. "\nwr: " .. drop.wind_rate)
 -- end
+
+@K2雨ドライバー
+--track0:速さ,0,20000,4000,0.001
+--track1:風,-10000,10000,0,0.1
+
+function undef_number_check(global_number)
+    return global_number+1
+end
+k2_driver_speed = obj.track0
+k2_driver_wind = obj.track1
