@@ -196,10 +196,11 @@ function init_drops()
     for i = 1, drops do
         local x = random_float(-obj.screen_w / 2, obj.screen_w / 2)
         local y = random_float(-obj.screen_h / 2, obj.screen_h / 2)
+        local z = math.random(0, depth)
         local x_rate = random_float(-spread / 90, spread / 90)
         local y_rate = random_float(MIN_Y_RATE, MAX_Y_RATE)
         local wind_rate = 1 + random_float(-windvar, windvar) / 100
-        table.insert(result, {x = x, y = y, x_rate = x_rate, y_rate = y_rate, wind_rate = wind_rate})
+        table.insert(result, {x = x, y = y, z = z, x_rate = x_rate, y_rate = y_rate, wind_rate = wind_rate})
     end
     return result
 end
@@ -261,10 +262,11 @@ function spawn_drops(side)
         x = obj.screen_w / 2 + random_float(0, wind / obj.framerate)
         y = math.random(-obj.screen_h / 2, obj.screen_h / 2)
     end
+    local z = math.random(0, depth)
     local x_rate = random_float(-spread / 90, spread / 90)
     local y_rate = random_float(MIN_Y_RATE, MAX_Y_RATE)
     local wind_rate = 1 + random_float(-windvar, windvar) / 100
-    return {x = x, y = y, x_rate = x_rate, y_rate = y_rate, wind_rate = wind_rate}
+    return {x = x, y = y, z = z, x_rate = x_rate, y_rate = y_rate, wind_rate = wind_rate}
 end
 
 if not do_init_drops then
@@ -296,7 +298,7 @@ for i, drop in ipairs(drops_table) do
     local drop_length = math.sqrt(math.abs(drop.x - start_x) ^ 2 + math.abs(drop.y - start_y) ^ 2)
     obj.load("figure", "四角形", color, 100)
     obj.effect("リサイズ", "X", drop_size, "Y", drop_length, "ドット数でサイズ指定", 1)
-    obj.draw(center_x, center_y, 0, 1, alpha / 100, 0, 0, math.deg(-math.atan2(drop.x - start_x, drop.y - start_y)))
+    obj.draw(center_x, center_y, drop.z, 1, alpha / 100, 0, 0, math.deg(-math.atan2(drop.x - start_x, drop.y - start_y)))
 end
 
 obj.setoption("drawtarget", "framebuffer")
