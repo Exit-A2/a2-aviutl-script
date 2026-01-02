@@ -169,6 +169,8 @@ obj.draw()
 local drops = obj.track0
 local speed = obj.track1
 local wind = obj.track2
+local MIN_Y_RATE = 0.8
+local MAX_Y_RATE = 1.2
 math.randomseed(seed + obj.frame * 132)
 
 function undef_array_check(global_array)
@@ -189,19 +191,44 @@ end
 
 -- テーブルを初期化
 -- https://scrapbox.io/totti95u/AviUtlでフレームで初期化されない変数が欲しい
+function init_drops()
+    local result = {}
+    for i = 1, drops do
+        local x = random_float(-obj.screen_w / 2, obj.screen_w / 2)
+        local y = random_float(-obj.screen_h / 2, obj.screen_h / 2)
+        local x_rate = random_float(-spread / 90, spread / 90)
+        local y_rate = random_float(MIN_Y_RATE, MAX_Y_RATE)
+        local wind_rate = 1 + random_float(-windvar, windvar) / 100
+        table.insert(result, {x = x, y = y, x_rate = x_rate, y_rate = y_rate, wind_rate = wind_rate})
+    end
+    return result
+end
+
 if not(pcall(undef_array_check, global_drops)) or (obj.frame == 0) then
     global_drops = {}
 end
-if not(pcall(undef_array_check, global_drops[obj.layer])) then
-    global_drops[obj.layer] = {}
+
+local do_init_drops = not(pcall(undef_array_check, global_drops[obj.layer]))
+if do_init_drops then
+    global_drops[obj.layer] = init_drops()
 end
 local drops_table = global_drops[obj.layer]
-
 
 --画面外の雨粒の削除
 local i = 1
 while i <= #drops_table do
-    if (drops_table[i].x < -obj.screen_w / 2) or (drops_table[i].x > obj.screen_w / 2) or (drops_table[i].y > obj.screen_h / 2) then
+    local delete = false
+    if (drops_table[i].x < -obj.screen_w / 2) and (wind < 0) then
+        delete = true
+    end
+    if (drops_table[i].x > obj.screen_w / 2) and (wind > 0) then
+        delete = true
+    end
+    if drops_table[i].y > obj.screen_h / 2 then
+        delete = true
+    end
+
+    if delete then
         table.remove(drops_table, i)
     else
         i = i + 1
@@ -221,42 +248,42 @@ end
 -- 雨粒の生成
 local current_drops = #drops_table
 local spawning_drops = drops - current_drops
-local min_y_rate = 0.8
-local max_y_rate = 1.2
+
 function spawn_drops(side)
     local x, y
     if side == 0 then
         x = math.random(-obj.screen_w / 2, obj.screen_w / 2)
-        y = -obj.screen_h / 2
+        y = -obj.screen_h / 2 + random_float(0, speed / obj.framerate)
     elseif side == 1 then
-        x = -obj.screen_w / 2
+        x = -obj.screen_w / 2 - random_float(wind / obj.framerate, 0)
         y = math.random(-obj.screen_h / 2, obj.screen_h / 2)
     else
-        x = obj.screen_w / 2
+        x = obj.screen_w / 2 + random_float(0, wind / obj.framerate)
         y = math.random(-obj.screen_h / 2, obj.screen_h / 2)
     end
-    local z = math.random(0, depth)
     local x_rate = random_float(-spread / 90, spread / 90)
-    local y_rate = random_float(min_y_rate, max_y_rate)
+    local y_rate = random_float(MIN_Y_RATE, MAX_Y_RATE)
     local wind_rate = 1 + random_float(-windvar, windvar) / 100
-    return {x = x, y = y, z = z, x_rate = x_rate, y_rate = y_rate, wind_rate = wind_rate}
+    return {x = x, y = y, x_rate = x_rate, y_rate = y_rate, wind_rate = wind_rate}
 end
-local side_probability = math.atan2(speed, wind)
-print(side_probability)
-for i = 1, spawning_drops do
-    local side = 0
-    if math.random() < 1 - spread / 180 - (wind - speed) / 2 then
-        side = 0
-    else
-        if wind < 0 then
-            side = 1
-        elseif wind > 0 then
-            side = 2
+
+if not do_init_drops then
+    local side_probability = math.atan2(wind,speed) / math.pi * 2
+    for i = 1, spawning_drops do
+        local side = 0
+        if math.random() > side_probability then
+            side = 0
         else
-            side = math.random(1, 2)
+            if wind > 0 then
+                side = 1
+            elseif wind < 0 then
+                side = 2
+            else
+                side = math.random(1, 2)
+            end
         end
+        table.insert(drops_table, spawn_drops(side))
     end
-    table.insert(drops_table, spawn_drops(side))
 end
 
 -- 雨粒を仮想バッファに描画
