@@ -23,22 +23,3 @@ if ii == 1 then
 end
 
 obj.effect("クリッピング", "上", up, "下", down, "左", left, "右", right, "中心の位置を変更", chk)
-
-@パーセントクリッピング
---track0:上,0,100,0,0.1
---track1:下,0,100,0,0.1
---track2:左,0,100,0,0.1
---track3:右,0,100,0,0.1
---check0:中心の位置を変更,0
-
-local chk = 0
-if obj.check0 then
-    chk = 1
-end
-
-local up = (obj.track0 / 100) * obj.h
-local down = (obj.track1 / 100) * obj.h
-local left = (obj.track2 / 100) * obj.w
-local right = (obj.track3 / 100) * obj.w
-
-obj.effect("クリッピング", "上", up, "下", down, "左", left, "右", right, "中心の位置を変更", cent)
