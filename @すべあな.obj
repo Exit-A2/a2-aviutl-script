@@ -159,3 +159,123 @@ obj.load("figure", figure, 0xffffff, radius + (line / 2), line)
 obj.effect("ぼかし", "範囲", 5)
 obj.effect("グロー", "強さ", 32, "拡散", 35 / z, "しきい値", 8, "ぼかし", 0, "color", col3, "no_color", 0)
 obj.draw()
+
+@K2雨
+--track0: 量,0,20000,150,1
+--track1:速さ,0,20000,4000,0.001
+--track2:風,-10000,10000,0,0.1
+--dialog:大きさ,drop_size=3.00;風バリエーション,windvar=0.0;奥行き,depth=5000;拡散,spread=6.00;色/col,color=0xffffff;透明度,alpha=25.0;シード,seed=0;
+
+local drops = obj.track0
+local speed = obj.track1
+local wind = obj.track2
+math.randomseed(seed + obj.frame * 132)
+
+function undef_array_check(global_array)
+    return #global_array
+end
+
+function undef_number_check(global_number)
+    return global_number+1
+end
+
+function random_float(min, max)
+    if max - min <= 1 then
+        return min + math.random() * (max - min)
+    else 
+        return math.random(min, max - 1) + math.random()
+    end
+end
+
+-- テーブルを初期化
+-- https://scrapbox.io/totti95u/AviUtlでフレームで初期化されない変数が欲しい
+if not(pcall(undef_array_check, global_drops)) or (obj.frame == 0) then
+    global_drops = {}
+end
+if not(pcall(undef_array_check, global_drops[obj.layer])) then
+    global_drops[obj.layer] = {}
+end
+local drops_table = global_drops[obj.layer]
+
+
+--画面外の雨粒の削除
+local i = 1
+while i <= #drops_table do
+    if (drops_table[i].x < -obj.screen_w / 2) or (drops_table[i].x > obj.screen_w / 2) or (drops_table[i].y > obj.screen_h / 2) then
+        table.remove(drops_table, i)
+    else
+        i = i + 1
+    end
+end
+
+-- 雨粒の移動
+function drop_move(drop)
+    drop.x = drop.x + speed / obj.framerate * drop.x_rate + wind / obj.framerate * drop.wind_rate
+    drop.y = drop.y + speed / obj.framerate * drop.y_rate
+    return drop
+end
+for i = 1, #drops_table do
+    drops_table[i] = drop_move(drops_table[i])
+end
+
+-- 雨粒の生成
+local current_drops = #drops_table
+local spawning_drops = drops - current_drops
+local min_y_rate = 0.8
+local max_y_rate = 1.2
+function spawn_drops(side)
+    local x, y
+    if side == 0 then
+        x = math.random(-obj.screen_w / 2, obj.screen_w / 2)
+        y = -obj.screen_h / 2
+    elseif side == 1 then
+        x = -obj.screen_w / 2
+        y = math.random(-obj.screen_h / 2, obj.screen_h / 2)
+    else
+        x = obj.screen_w / 2
+        y = math.random(-obj.screen_h / 2, obj.screen_h / 2)
+    end
+    local z = math.random(0, depth)
+    local x_rate = random_float(-spread / 90, spread / 90)
+    local y_rate = random_float(min_y_rate, max_y_rate)
+    local wind_rate = 1 + random_float(-windvar, windvar) / 100
+    return {x = x, y = y, z = z, x_rate = x_rate, y_rate = y_rate, wind_rate = wind_rate}
+end
+local side_probability = math.atan2(speed, wind)
+print(side_probability)
+for i = 1, spawning_drops do
+    local side = 0
+    if math.random() < 1 - spread / 180 - (wind - speed) / 2 then
+        side = 0
+    else
+        if wind < 0 then
+            side = 1
+        elseif wind > 0 then
+            side = 2
+        else
+            side = math.random(1, 2)
+        end
+    end
+    table.insert(drops_table, spawn_drops(side))
+end
+
+-- 雨粒を仮想バッファに描画
+obj.setoption("drawtarget", "tempbuffer", obj.screen_w, obj.screen_h)
+for i, drop in ipairs(drops_table) do
+    local start_x = drop.x - speed / obj.framerate * drop.x_rate - wind / obj.framerate * drop.wind_rate
+    local start_y = drop.y - speed / obj.framerate * drop.y_rate
+    local center_x = (drop.x + start_x) / 2
+    local center_y = (drop.y + start_y) / 2
+    local drop_length = math.sqrt(math.abs(drop.x - start_x) ^ 2 + math.abs(drop.y - start_y) ^ 2)
+    obj.load("figure", "四角形", color, 100)
+    obj.effect("リサイズ", "X", drop_size, "Y", drop_length, "ドット数でサイズ指定", 1)
+    obj.draw(center_x, center_y, 0, 1, alpha / 100, 0, 0, math.deg(-math.atan2(drop.x - start_x, drop.y - start_y)))
+end
+
+obj.setoption("drawtarget", "framebuffer")
+obj.load("tempbuffer")
+global_drops[obj.layer] = drops_table
+
+-- for i, drop in ipairs(drops_table) do
+--     print("x: " .. drop.x .. "\ny: " .. drop.y .. "\nz: " .. drop.z .. "\nxr: " .. drop.x_rate .. "\nyr: " .. drop.y_rate .. "\nwr: " .. drop.wind_rate)
+-- end
