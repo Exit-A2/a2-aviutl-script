@@ -165,7 +165,7 @@ obj.draw()
 --track1:速さ,0,20000,4000,0.001
 --track2:風,-10000,10000,0,0.1
 --track3:拡散,0,90,6,0.01
---dialog:大きさ,drop_size=3.00;風バリエーション,windvar=0.0;奥行き,depth=5000;長さ,length=100;色/col,color=0xffffff;不透明度,alpha=25.0;シード,seed=0;ドライバーをリセット/chk,reset=0;
+--dialog:大きさ,drop_size=3.00;風バリエーション,windvar=0.0;奥行き,depth=5000;長さ,length=100;色/col,color=0xffffff;不透明度,alpha=25.0;シード,seed=0;速さのドライバー感度,driver_speed_sensitive=1;風のドライバー感度,driver_wind_sensitive=1;ドライバーをリセット/chk,reset=0;
 
 local drops = obj.track0
 local speed = obj.track1
@@ -184,17 +184,16 @@ function undef_number_check(global_number)
 end
 
 -- ドライバーをリセット
-if reset then
 if reset == 1 then
     k2_driver_speed = nil
     k2_driver_wind = nil
 end
 
+-- ドライバーがあれば更新
 print(pcall(undef_number_check, k2_driver_speed) and pcall(undef_number_check, k2_driver_wind))
--- ドライバーがあるか確認
 if pcall(undef_number_check, k2_driver_speed) and pcall(undef_number_check, k2_driver_wind) then
-    speed = k2_driver_speed
-    wind = k2_driver_wind
+    speed = speed * (1 - driver_speed_sensitive) + k2_driver_speed * driver_speed_sensitive
+    wind = wind * (1 - driver_wind_sensitive) + k2_driver_wind * driver_wind_sensitive
 end
 
 function random_float(min, max)
