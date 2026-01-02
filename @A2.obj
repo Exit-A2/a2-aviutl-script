@@ -2,7 +2,7 @@
 --track0:Xサイズ,0,2000,100,0.1
 --track1:Yサイズ,0,2000,100,0.1
 --track2:半径,0,500,5,0.1
---color:色:0xffffff
+--color:色,0xffffff
 function rounded_rect(x, y, xsize, ysize, radius, color)
     obj.load("figure", "四角形", color, 100, 4000)
     obj.effect("リサイズ", "X", xsize - (radius * 2), "Y", ysize, "ドット数でサイズ指定", 1)
