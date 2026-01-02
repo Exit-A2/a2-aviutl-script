@@ -164,7 +164,7 @@ obj.draw()
 --track0: 量,0,20000,150,1
 --track1:速さ,0,20000,4000,0.001
 --track2:風,-10000,10000,0,0.1
---dialog:大きさ,drop_size=3.00;風バリエーション,windvar=0.0;奥行き,depth=5000;拡散,spread=6.00;色/col,color=0xffffff;透明度,alpha=25.0;シード,seed=0;
+--dialog:大きさ,drop_size=3.00;風バリエーション,windvar=0.0;奥行き,depth=5000;拡散,spread=6.00;長さ,length=100;色/col,color=0xffffff;透明度,alpha=25.0;シード,seed=0;
 
 local drops = obj.track0
 local speed = obj.track1
@@ -291,8 +291,8 @@ end
 -- 雨粒を仮想バッファに描画
 obj.setoption("drawtarget", "tempbuffer", obj.screen_w, obj.screen_h)
 for i, drop in ipairs(drops_table) do
-    local start_x = drop.x - speed / obj.framerate * drop.x_rate - wind / obj.framerate * drop.wind_rate
-    local start_y = drop.y - speed / obj.framerate * drop.y_rate
+    local start_x = drop.x - speed / obj.framerate * drop.x_rate * length / 100- wind / obj.framerate * drop.wind_rate
+    local start_y = drop.y - speed / obj.framerate * drop.y_rate * length / 100
     local center_x = (drop.x + start_x) / 2
     local center_y = (drop.y + start_y) / 2
     local drop_length = math.sqrt(math.abs(drop.x - start_x) ^ 2 + math.abs(drop.y - start_y) ^ 2)
