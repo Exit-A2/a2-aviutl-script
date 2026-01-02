@@ -185,6 +185,7 @@ end
 
 -- ドライバーをリセット
 if reset then
+if reset == 1 then
     k2_driver_speed = nil
     k2_driver_wind = nil
 end
