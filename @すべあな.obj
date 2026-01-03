@@ -59,7 +59,7 @@ end
 obj.setoption("drawtarget", "framebuffer")
 obj.load("tempbuffer")
 
-@...パルス
+@...パルス(前)
 --track0:サイズ,0,1000,40,1
 --track1:縦横比,-100,100,0,1
 --track2:シード,-1000,1000,0,1
@@ -92,6 +92,41 @@ obj.effect("ラスター", "横幅", 7 * scale, "高さ", 15 * scale, "縦ラス
 obj.effect("グロー", "強さ", 34, "拡散", 42, "しきい値", 40, "color", color4, "ぼかし", 1, "no_color", 0)
 obj.draw()
 
+@...パルス
+--track0:サイズ,0,1000,40,1
+--track1:縦横比,-100,100,0,1
+--track2:シード,-1000,1000,0,1
+--dialog:色1/col,color1=0x006bff;色2/col,color2=0x00fbff;色3/col,color3=0x91fffc;色4/col,color4=0x1cd9ff;図形/fig,f="円";
+
+local size = obj.track0
+local aspect = obj.track1
+local seed = obj.track2
+
+local scale = size / 40
+local fscale = obj.framerate / 60
+obj.setoption("drawtarget", "tempbuffer", size * 15, size * 15)
+obj.load("figure", f, color1, size * 2.75)
+obj.aspect = aspect / 100
+obj.effect("ぼかし", "範囲", 63 * scale)
+obj.effect("ノイズ", "強さ", 52, "変化速度", 52 * fscale, "周期X", 0.72 / scale, "周期Y", 0.72 / scale, "seed", seed)
+obj.draw()
+
+obj.load("figure", f, color2, size * 1.375)
+obj.aspect = aspect / 100
+obj.effect("グロー", "強さ", 26, "拡散", 37 * scale, "ぼかし", 0)
+obj.effect("ぼかし", "範囲", 18 * scale)
+obj.effect("ノイズ", "変化速度", 33 * fscale, "周期X", 0.2 / scale, "周期Y", 0.2 / scale, "しきい値", 45, "seed", seed)
+obj.draw()
+
+obj.load("figure", f, color3, size, 4 * scale)
+obj.aspect = aspect / 100
+obj.effect("ラスター", "横幅", 7 * scale, "高さ", 15 * scale, "縦ラスター", 0, "ランダム振幅", 1)
+obj.effect("ラスター", "横幅", 7 * scale, "高さ", 15 * scale, "縦ラスター", 1, "ランダム振幅", 1)
+obj.effect("グロー", "強さ", 34, "拡散", 42, "しきい値", 40, "color", color4, "ぼかし", 1, "no_color", 0)
+obj.draw()
+
+obj.setoption("drawtarget", "framebuffer")
+obj.load("tempbuffer")
 @表裏リトマス
 --track0:Xサイズ,0,1080,48,0.1
 --track1:Yサイズ,0,1080,240,0.1
