@@ -174,7 +174,7 @@ obj.draw()
 --track1:速さ,0,20000,4000,0.001
 --track2:風,-10000,10000,0,0.1
 --track3:速さの感度,0,1,1,0.01
---dialog:大きさ,drop_size=3.00;風バリエーション,windvar=0.0;奥行き,depth=5000;拡散,spread=6.00;長さ,length=100;色/col,color=0xffffff;不透明度,alpha=25.0;シード,seed=0;風の感度,driver_wind_sensitive=1;ドライバーをリセット/chk,reset=0;
+--dialog:大きさ,drop_size=3.00;風バリエーション,windvar=0.0;奥行き,depth=5000;拡散,spread=6.00;長さ,length=100;色/col,color=0xffffff;不透明度,alpha=25.0;シード,seed=0;風の感度,driver_wind_sensitive=1;画面横幅,buffer_w=1920;画面縦幅,buffer_h=1080;ドライバーをリセット/chk,reset=0;
 
 local drops = obj.track0
 local speed = obj.track1
@@ -217,8 +217,8 @@ end
 function init_drops()
     local result = {}
     for i = 1, drops do
-        local x = random_float(-obj.screen_w / 2, obj.screen_w / 2)
-        local y = random_float(-obj.screen_h / 2, obj.screen_h / 2)
+        local x = random_float(-buffer_w / 2, buffer_w / 2)
+        local y = random_float(-buffer_h / 2, buffer_h / 2)
         local z = math.random(0, depth)
         local x_rate = random_float(-spread / 90, spread / 90)
         local y_rate = random_float(MIN_Y_RATE, MAX_Y_RATE)
@@ -242,13 +242,13 @@ local drops_table = global_drops[obj.layer]
 local i = 1
 while i <= #drops_table do
     local delete = false
-    if (drops_table[i].x < -obj.screen_w / 2) and (wind < 0) then
+    if (drops_table[i].x < -buffer_w / 2) and (wind < 0) then
         delete = true
     end
-    if (drops_table[i].x > obj.screen_w / 2) and (wind > 0) then
+    if (drops_table[i].x > buffer_w / 2) and (wind > 0) then
         delete = true
     end
-    if drops_table[i].y > obj.screen_h / 2 + speed / obj.framerate * (length / 100) then
+    if drops_table[i].y > buffer_h / 2 + speed / obj.framerate * (length / 100) then
         delete = true
     end
 
@@ -276,14 +276,14 @@ local spawning_drops = drops - current_drops
 function spawn_drops(side)
     local x, y
     if side == 0 then
-        x = math.random(-obj.screen_w / 2, obj.screen_w / 2)
-        y = -obj.screen_h / 2 + random_float(0, speed / obj.framerate)
+        x = math.random(-buffer_w / 2, buffer_w / 2)
+        y = -buffer_h / 2 + random_float(0, speed / obj.framerate)
     elseif side == 1 then
-        x = -obj.screen_w / 2 - random_float(wind / obj.framerate, 0)
-        y = math.random(-obj.screen_h / 2, obj.screen_h / 2)
+        x = -buffer_w / 2 - random_float(wind / obj.framerate, 0)
+        y = math.random(-buffer_h / 2, buffer_h / 2)
     else
-        x = obj.screen_w / 2 + random_float(0, wind / obj.framerate)
-        y = math.random(-obj.screen_h / 2, obj.screen_h / 2)
+        x = buffer_w / 2 + random_float(0, wind / obj.framerate)
+        y = math.random(-buffer_h / 2, buffer_h / 2)
     end
     local z = math.random(0, depth)
     local x_rate = random_float(-spread / 90, spread / 90)
@@ -312,7 +312,7 @@ if not do_init_drops then
 end
 
 -- 雨粒を仮想バッファに描画
-obj.setoption("drawtarget", "tempbuffer", obj.screen_w, obj.screen_h)
+obj.setoption("drawtarget", "tempbuffer", buffer_w, buffer_h)
 for i, drop in ipairs(drops_table) do
     local start_x = drop.x - speed / obj.framerate * drop.x_rate * length / 100- wind / obj.framerate * drop.wind_rate
     local start_y = drop.y - speed / obj.framerate * drop.y_rate * length / 100
