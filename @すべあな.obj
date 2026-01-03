@@ -199,7 +199,6 @@ if reset == 1 then
 end
 
 -- ドライバーがあれば更新
-print(pcall(undef_number_check, k2_driver_speed) and pcall(undef_number_check, k2_driver_wind))
 if pcall(undef_number_check, k2_driver_speed) and pcall(undef_number_check, k2_driver_wind) then
     speed = speed * (1 - driver_speed_sensitive) + k2_driver_speed * driver_speed_sensitive
     wind = wind * (1 - driver_wind_sensitive) + k2_driver_wind * driver_wind_sensitive
