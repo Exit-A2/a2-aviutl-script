@@ -8,7 +8,7 @@ local xx = obj.track0
 local yy = obj.track1
 local zz = obj.track2
 
-if xx == 0 then
+if zz == 0 then
     obj.draw(0, 0, 0, 0)
 else
     local zoom = rem / zz * 100
