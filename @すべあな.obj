@@ -164,13 +164,13 @@ obj.draw()
 --track0: 量,0,20000,150,1
 --track1:速さ,0,20000,4000,0.001
 --track2:風,-10000,10000,0,0.1
---track3:拡散,0,90,6,0.01
---dialog:大きさ,drop_size=3.00;風バリエーション,windvar=0.0;奥行き,depth=5000;長さ,length=100;色/col,color=0xffffff;不透明度,alpha=25.0;シード,seed=0;速さのドライバー感度,driver_speed_sensitive=1;風のドライバー感度,driver_wind_sensitive=1;ドライバーをリセット/chk,reset=0;
+--track3:速さの感度,0,1,1,0.01
+--dialog:大きさ,drop_size=3.00;風バリエーション,windvar=0.0;奥行き,depth=5000;拡散,spread=6.00;長さ,length=100;色/col,color=0xffffff;不透明度,alpha=25.0;シード,seed=0;風の感度,driver_wind_sensitive=1;ドライバーをリセット/chk,reset=0;
 
 local drops = obj.track0
 local speed = obj.track1
 local wind = obj.track2
-local spread = obj.track3
+local driver_speed_sensitive = obj.track3
 local MIN_Y_RATE = 0.8
 local MAX_Y_RATE = 1.2
 math.randomseed(seed + obj.frame * 132)
@@ -240,7 +240,7 @@ while i <= #drops_table do
     if (drops_table[i].x > obj.screen_w / 2) and (wind > 0) then
         delete = true
     end
-    if drops_table[i].y > obj.screen_h / 2 then
+    if drops_table[i].y > obj.screen_h / 2 + speed / obj.framerate * (length / 100) then
         delete = true
     end
 
