@@ -69,31 +69,37 @@ local size = obj.track0
 local aspect = obj.track1
 local seed = obj.track2
 
-local scale = size / 40
-local fscale = obj.framerate / 60
-obj.setoption("drawtarget", "tempbuffer", size * 15, size * 15)
+-- 本家のサイズを40、60fpsとして考える
+local size_rate = size / 40
+local fps_rate = obj.framerate / 60
+
+-- 1層目
+obj.setoption("drawtarget", "tempbuffer", size * 2.75 + 63 * size_rate, size * 2.75 + 63 * size_rate)
 obj.load("figure", f, color1, size * 2.75)
 obj.aspect = aspect / 100
-obj.effect("ぼかし", "範囲", 63 * scale)
-obj.effect("ノイズ", "強さ", 52, "変化速度", 52 * fscale, "周期X", 0.72 / scale, "周期Y", 0.72 / scale, "seed", seed)
+obj.effect("ぼかし", "範囲", 63 * size_rate)
+obj.effect("ノイズ", "強さ", 52, "変化速度", 52 * fps_rate, "周期X", 0.72 / size_rate, "周期Y", 0.72 / size_rate, "seed", seed)
 obj.draw()
 
+-- 2層目
 obj.load("figure", f, color2, size * 1.375)
 obj.aspect = aspect / 100
-obj.effect("グロー", "強さ", 26, "拡散", 37 * scale, "ぼかし", 0)
-obj.effect("ぼかし", "範囲", 18 * scale)
-obj.effect("ノイズ", "変化速度", 33 * fscale, "周期X", 0.2 / scale, "周期Y", 0.2 / scale, "しきい値", 45, "seed", seed)
+obj.effect("グロー", "強さ", 26, "拡散", 37, "ぼかし", 0)
+obj.effect("ぼかし", "範囲", 18 * size_rate)
+obj.effect("ノイズ", "変化速度", 33 * fps_rate, "周期X", 0.2 / size_rate, "周期Y", 0.2 / size_rate, "しきい値", 45, "seed", seed)
 obj.draw()
 
-obj.load("figure", f, color3, size, 4 * scale)
+-- 3層目
+obj.load("figure", f, color3, size, 4 * size_rate)
 obj.aspect = aspect / 100
-obj.effect("ラスター", "横幅", 7 * scale, "高さ", 15 * scale, "縦ラスター", 0, "ランダム振幅", 1)
-obj.effect("ラスター", "横幅", 7 * scale, "高さ", 15 * scale, "縦ラスター", 1, "ランダム振幅", 1)
+obj.effect("ラスター", "横幅", 7 * size_rate, "高さ", 15 * size_rate, "縦ラスター", 0, "ランダム振幅", 1)
+obj.effect("ラスター", "横幅", 7 * size_rate, "高さ", 15 * size_rate, "縦ラスター", 1, "ランダム振幅", 1)
 obj.effect("グロー", "強さ", 34, "拡散", 42, "しきい値", 40, "color", color4, "ぼかし", 1, "no_color", 0)
 obj.draw()
 
 obj.setoption("drawtarget", "framebuffer")
 obj.load("tempbuffer")
+
 @表裏リトマス
 --track0:Xサイズ,0,1080,48,0.1
 --track1:Yサイズ,0,1080,240,0.1
@@ -103,21 +109,24 @@ obj.load("tempbuffer")
 local width = obj.track0
 local height = obj.track1
 local time = obj.track2
+time = time - 1
 
+-- サイズから縦横比を計算
 local aspect = -1 + (height / width)
 local size = width
 if width < height then
     size = height
     aspect = 1 - (width / height)
 end
-time = time - 1
 
+-- 1層目
 obj.setoption("drawtarget", "tempbuffer", width * 4, height * 2)
 obj.load("figure", "四角形", color, size, 4000, aspect)
 obj.effect("拡散光", "強さ", 100, "拡散", kak + (500 - kak) * (time / 60))
 obj.alpha = 1 - (time / 60)
 obj.draw()
 
+-- 2層目
 obj.load("figure", "四角形", 0xffffff, size + 1, 1, aspect)
 obj.alpha = 1 - (time / 60)
 obj.effect("グロー", "拡散", kak * 1.14583 - (kak * 1.14583 * (time / 60)))
