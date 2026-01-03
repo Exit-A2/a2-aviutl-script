@@ -157,7 +157,6 @@ obj.draw()
 --3層目(白い光)
 obj.load("figure", figure, 0xffffff, radius + (line / 2), line)
 obj.effect("ぼかし", "範囲", 5)
-obj.effect("グロー", "強さ", 32, "拡散", 35 / z, "しきい値", 8, "ぼかし", 0, "color", col3, "no_color", 0)
 obj.draw()
 
 @K2雨
