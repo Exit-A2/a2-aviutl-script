@@ -293,7 +293,7 @@ function spawn_drops(side)
 end
 
 if not do_init_drops then
-    local side_probability = math.atan2(wind,speed) / math.pi * 2
+    local side_probability = math.abs(math.atan2(wind,speed) / math.pi * 2)
     for i = 1, spawning_drops do
         local side = 0
         if math.random() > side_probability then
