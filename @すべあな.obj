@@ -110,7 +110,9 @@ if width < height then
     size = height
     aspect = 1 - (width / height)
 end
-local time = time - 1
+time = time - 1
+
+obj.setoption("drawtarget", "tempbuffer", width * 4, height * 2)
 obj.load("figure", "四角形", color, size, 4000, aspect)
 obj.effect("拡散光", "強さ", 100, "拡散", kak + (500 - kak) * (time / 60))
 obj.alpha = 1 - (time / 60)
@@ -120,6 +122,9 @@ obj.load("figure", "四角形", 0xffffff, size + 1, 1, aspect)
 obj.alpha = 1 - (time / 60)
 obj.effect("グロー", "拡散", kak * 1.14583 - (kak * 1.14583 * (time / 60)))
 obj.draw()
+
+obj.setoption("drawtarget", "framebuffer")
+obj.load("tempbuffer")
 
 @アブジェ波紋
 --track0:半径,0,5000,100,1
