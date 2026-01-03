@@ -92,20 +92,6 @@ obj.effect("ラスター", "横幅", 7 * scale, "高さ", 15 * scale, "縦ラス
 obj.effect("グロー", "強さ", 34, "拡散", 42, "しきい値", 40, "color", color4, "ぼかし", 1, "no_color", 0)
 obj.draw()
 
-@...バー(未完成)
---！！未完成！！！！未完成！！！！未完成！！！！未完成！！！！未完成！！！！未完成！！！！未完成！！！！未完成！！！！未完成！！
---track0:グラデ幅,0,1000,175,1
---track1:光強さ,0,300,52,1
---track2:速度,0,400,1,0.1
---dialog:色/col,color=0xff0000;白のみ/chk,white=0;
-
-local scale = obj.screen_h / 720
-local fscale = obj.framerate / 60
-obj.load("figure", "四角形", 0x000000, obj.screen_h)
-obj.effect("グラデーション", "幅", obj.track0, "no_color", 0, "no_color2", 0, "角度", -90, "color", color, "color2", 0x000000, "type", 3)
-obj.effect("ノイズ", "強さ", 34, "速度Y", obj.track2 * fscale, "変化速度", 2.1 * obj.track2 * fscale, "周期X", 2 / scale, "周期Y", 3.13 / scale)
-obj.effect("グロー", "強さ", obj.track1, "拡散", 39, "no_color", 0, "color", color)
-
 @表裏リトマス
 --track0:Xサイズ,0,1080,48,0.1
 --track1:Yサイズ,0,1080,240,0.1
