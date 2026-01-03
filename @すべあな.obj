@@ -4,53 +4,57 @@
 --track2:時間,0,3,0,1
 --dialog:色/col,color=0xffffff;赤線/chk,red=0;
 
-function rounded_rect(x, y, xsize, ysize, radius, color)
+local width = obj.track0
+local height = obj.track1
+local time = obj.track2
+
+function rounded_rect(x, y, width, height, radius, color)
     obj.load("figure", "四角形", color, 100)
     obj.setoption("antialias", 0)
-    obj.effect("リサイズ", "X", xsize - (radius * 2), "Y", ysize, "ドット数でサイズ指定", 1)
+    obj.effect("リサイズ", "X", width - (radius * 2), "Y", height, "ドット数でサイズ指定", 1)
     obj.draw(x, y)
     obj.load("figure", "四角形", color, 100)
     obj.setoption("antialias", 0)
-    obj.effect("リサイズ", "X", xsize, "Y", ysize - (radius * 2), "ドット数でサイズ指定", 1)
+    obj.effect("リサイズ", "X", width, "Y", height - (radius * 2), "ドット数でサイズ指定", 1)
     obj.draw(x, y)
     obj.load("figure", "円", color, radius * 2)
     obj.setoption("antialias", 0)
-    obj.draw(x - (xsize / 2) + radius, y - (ysize / 2) + radius) --左上
-    obj.draw(x + (xsize / 2) - radius, y - (ysize / 2) + radius) --右上
-    obj.draw(x - (xsize / 2) + radius, y + (ysize / 2) - radius) --左下
-    obj.draw(x + (xsize / 2) - radius, y + (ysize / 2) - radius) --右下
+    obj.draw(x - (width / 2) + radius, y - (height / 2) + radius) --左上
+    obj.draw(x + (width / 2) - radius, y - (height / 2) + radius) --右上
+    obj.draw(x - (width / 2) + radius, y + (height / 2) - radius) --左下
+    obj.draw(x + (width / 2) - radius, y + (height / 2) - radius) --右下
 end
 
-obj.setoption("drawtarget", "tempbuffer", obj.track0, obj.track1)
+obj.setoption("drawtarget", "tempbuffer", width, height)
 
-if obj.track2 == 0 then
-    rounded_rect(0, 0, obj.track0, obj.track1 * (35 / 108), 3, color)
+if time == 0 then
+    rounded_rect(0, 0, width, height * (35 / 108), 3, color)
 
     if red == 1 then
-        rounded_rect(0, 0, obj.track0, obj.track1 / 108, 3, 0xff0000)
+        rounded_rect(0, 0, width, height / 108, 3, 0xff0000)
     end
-elseif obj.track2 == 1 then
+elseif time == 1 then
     --図形の高さが前と後で変わっててキレそう
-    rounded_rect(0, -obj.track1 * (61 / 216), obj.track0, obj.track1 * (13 / 54), 3, color)
-    rounded_rect(0, obj.track1 * (61 / 216), obj.track0, obj.track1 * (13 / 54), 3, color)
-elseif obj.track2 == 2 then
-    rounded_rect(0, -obj.track1 * (5 / 24), obj.track0, obj.track1 / 54, 3, color)
-    rounded_rect(0, obj.track1 * (5 / 24), obj.track0, obj.track1 / 54, 3, color)
+    rounded_rect(0, -height * (61 / 216), width, height * (13 / 54), 3, color)
+    rounded_rect(0, height * (61 / 216), width, height * (13 / 54), 3, color)
+elseif time == 2 then
+    rounded_rect(0, -height * (5 / 24), width, height / 54, 3, color)
+    rounded_rect(0, height * (5 / 24), width, height / 54, 3, color)
 
-    rounded_rect(0, obj.track1 / 4 + 0.5, obj.track0, obj.track1 * (7 / 108), 3, color)
-    rounded_rect(0, -obj.track1 / 4 - 0.5, obj.track0, obj.track1 * (7 / 108), 3, color)
+    rounded_rect(0, height / 4 + 0.5, width, height * (7 / 108), 3, color)
+    rounded_rect(0, -height / 4 - 0.5, width, height * (7 / 108), 3, color)
 
-    rounded_rect(0, obj.track1 / 2, obj.track0, obj.track1 * (37 / 108), 3, color)
-    rounded_rect(0, -obj.track1 / 2, obj.track0, obj.track1 * (37 / 108), 3, color)
-elseif obj.track2 == 3 then
-    rounded_rect(0, obj.track1 * (17 / 72), obj.track0, obj.track1 / 54, 3, color)
-    rounded_rect(0, -obj.track1 * (17 / 72), obj.track0, obj.track1 / 54, 3, color)
+    rounded_rect(0, height / 2, width, height * (37 / 108), 3, color)
+    rounded_rect(0, -height / 2, width, height * (37 / 108), 3, color)
+elseif time == 3 then
+    rounded_rect(0, height * (17 / 72), width, height / 54, 3, color)
+    rounded_rect(0, -height * (17 / 72), width, height / 54, 3, color)
 
-    rounded_rect(0, obj.track1 / 3, obj.track0, obj.track1 * (5 / 108), 3, color)
-    rounded_rect(0, -obj.track1 / 3, obj.track0, obj.track1 * (5 / 108), 3, color)
+    rounded_rect(0, height / 3, width, height * (5 / 108), 3, color)
+    rounded_rect(0, -height / 3, width, height * (5 / 108), 3, color)
 
-    rounded_rect(0, obj.track1 / 2, obj.track0, obj.track1 * (17 / 108), 3, color)
-    rounded_rect(0, -obj.track1 / 2, obj.track0, obj.track1 * (17 / 108), 3, color)
+    rounded_rect(0, height / 2, width, height * (17 / 108), 3, color)
+    rounded_rect(0, -height / 2, width, height * (17 / 108), 3, color)
 end
 obj.setoption("drawtarget", "framebuffer")
 obj.load("tempbuffer")
@@ -61,24 +65,28 @@ obj.load("tempbuffer")
 --track2:シード,-1000,1000,0,1
 --dialog:色1/col,color1=0x006bff;色2/col,color2=0x00fbff;色3/col,color3=0x91fffc;色4/col,color4=0x1cd9ff;図形/fig,f="円";
 
-local scale = obj.track0 / 40
+local size = obj.track0
+local aspect = obj.track1
+local seed = obj.track2
+
+local scale = size / 40
 local fscale = obj.framerate / 60
-obj.load("figure", f, color1, obj.track0)
-obj.aspect = obj.track1 / 100
+obj.load("figure", f, color1, size)
+obj.aspect = aspect / 100
 obj.effect("拡大率", "拡大率", 275)
 obj.effect("ぼかし", "範囲", 23 * scale)
-obj.effect("ノイズ", "強さ", 52, "変化速度", 52 * fscale, "周期X", 2 / scale, "周期Y", 2 / scale, "seed", obj.track2)
+obj.effect("ノイズ", "強さ", 52, "変化速度", 52 * fscale, "周期X", 2 / scale, "周期Y", 2 / scale, "seed", seed)
 obj.draw()
 
-obj.load("figure", f, color2, obj.track0 * 1.375)
-obj.aspect = obj.track1 / 100
+obj.load("figure", f, color2, size * 1.375)
+obj.aspect = aspect / 100
 obj.effect("グロー", "強さ", 26, "拡散", 37 * scale, "ぼかし", 0)
 obj.effect("ぼかし", "範囲", 18 * scale)
-obj.effect("ノイズ", "変化速度", 33 * fscale, "周期X", 0.2 / scale, "周期Y", 0.2 / scale, "しきい値", 45, "seed", obj.track2)
+obj.effect("ノイズ", "変化速度", 33 * fscale, "周期X", 0.2 / scale, "周期Y", 0.2 / scale, "しきい値", 45, "seed", seed)
 obj.draw()
 
-obj.load("figure", f, color3, obj.track0, 4 * scale)
-obj.aspect = obj.track1 / 100
+obj.load("figure", f, color3, size, 4 * scale)
+obj.aspect = aspect / 100
 obj.effect("ラスター", "横幅", 7 * scale, "高さ", 15 * scale, "縦ラスター", 0, "ランダム振幅", 1)
 obj.effect("ラスター", "横幅", 7 * scale, "高さ", 15 * scale, "縦ラスター", 1, "ランダム振幅", 1)
 obj.effect("グロー", "強さ", 34, "拡散", 42, "しきい値", 40, "color", color4, "ぼかし", 1, "no_color", 0)
@@ -104,20 +112,24 @@ obj.effect("グロー", "強さ", obj.track1, "拡散", 39, "no_color", 0, "colo
 --track2:時間,1,60,1,0.1
 --dialog:拡散,kak=70;ライン幅,l=1;色/col,color=0x00ffff;
 
-local aspect = -1 + (obj.track1 / obj.track0)
-local size = obj.track0
-if obj.track0 < obj.track1 then
-    size = obj.track1
-    aspect = 1 - (obj.track0 / obj.track1)
+local width = obj.track0
+local height = obj.track1
+local time = obj.track2
+
+local aspect = -1 + (height / width)
+local size = width
+if width < height then
+    size = height
+    aspect = 1 - (width / height)
 end
-local time = obj.track2 - 1
+local time = time - 1
 obj.load("figure", "四角形", color, size, 4000, aspect)
 obj.effect("拡散光", "強さ", 100, "拡散", kak + (500 - kak) * (time / 60))
-obj.alpha = 1 - (obj.track2 / 60)
+obj.alpha = 1 - (time / 60)
 obj.draw()
 
 obj.load("figure", "四角形", 0xffffff, size + 1, 1, aspect)
-obj.alpha = 1 - (obj.track2 / 60)
+obj.alpha = 1 - (time / 60)
 obj.effect("グロー", "拡散", kak * 1.14583 - (kak * 1.14583 * (time / 60)))
 obj.draw()
 

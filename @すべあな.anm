@@ -4,12 +4,16 @@
 --track2:Z,0,500,10,0.01
 --dialog:基準距離,rem=10;
 
-if obj.track2 == 0 then
+local xx = obj.track0
+local yy = obj.track1
+local zz = obj.track2
+
+if xx == 0 then
     obj.draw(0, 0, 0, 0)
 else
-    local zoom = rem / obj.track2 * 100
-    obj.ox = obj.track0 * zoom
-    obj.oy = obj.track1 * zoom
+    local zoom = rem / zz * 100
+    obj.ox = xx * zoom
+    obj.oy = yy * zoom
     while 800 < zoom do
         obj.effect("拡大率", "拡大率", 200)
         zoom = zoom / 2
@@ -20,7 +24,10 @@ end
 @ランダム点滅
 --track0:コマ落ち,1,60,1,1
 --dialog:シード,seed=0;
-r = obj.rand(0, 1, seed * obj.layer * obj.totalframe * obj.screen_h, math.floor(obj.frame / obj.track0))
+
+local drop_frame = obj.track0
+
+r = obj.rand(0, 1, seed * obj.layer * obj.totalframe * obj.screen_h, math.floor(obj.frame / drop_frame))
 if r == 0 then
     obj.draw(0, 0, 0, 0)
 end

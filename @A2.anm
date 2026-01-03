@@ -5,11 +5,11 @@
 --track3:右,0,1000,0,1
 --check0:中心の位置を変更,0
 --dialog:X倍率,xx=1;Y倍率,yy=1;切り捨てる/chk,ii=0;
-local chk = 0
-if obj.check0 then
-    chk = 1
-end
 
+local center = 0
+if obj.check0 then
+    center = 1
+end
 local up = obj.track0 * yy
 local down = obj.track1 * yy
 local left = obj.track2 * xx
@@ -22,4 +22,4 @@ if ii == 1 then
     right = right - right % xx
 end
 
-obj.effect("クリッピング", "上", up, "下", down, "左", left, "右", right, "中心の位置を変更", chk)
+obj.effect("クリッピング", "上", up, "下", down, "左", left, "右", right, "中心の位置を変更", center)
