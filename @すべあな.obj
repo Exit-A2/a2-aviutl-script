@@ -119,17 +119,25 @@ if width < height then
     aspect = 1 - (width / height)
 end
 
+local process = time / 60
+local diff_1 = kak + (500 - kak) * process
+local diff_2 = kak * 1.14583 * (1 - process)
+-- 拡散光エフェクトでは、拡散が1上がるごとに画像サイズは2増える
+local buffer_size = size + diff_1 * 2
+
 -- 1層目
+obj.setoption("drawtarget", "tempbuffer", buffer_size, buffer_size)
 obj.load("figure", "四角形", color, size, 4000, aspect)
-obj.effect("拡散光", "強さ", 100, "拡散", kak + (500 - kak) * (time / 60))
-obj.alpha = 1 - (time / 60)
-obj.draw()
+obj.effect("拡散光", "強さ", 100, "拡散", diff_1)
+obj.draw(0, 0, 0, 1, 1 - process)
 
 -- 2層目
-obj.load("figure", "四角形", 0xffffff, size + 1, 1, aspect)
-obj.alpha = 1 - (time / 60)
-obj.effect("グロー", "拡散", kak * 1.14583 - (kak * 1.14583 * (time / 60)))
-obj.draw()
+obj.load("figure", "四角形", 0xffffff, size + l * 2, l, aspect)
+obj.effect("グロー", "拡散", diff_2)
+obj.draw(0, 0, 0, 1, 1 - process)
+
+obj.setoption("drawtarget", "framebuffer")
+obj.load("tempbuffer")
 
 @アブジェ波紋
 --track0:半径,0,5000,100,1
