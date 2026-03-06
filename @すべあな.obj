@@ -180,7 +180,7 @@ obj.draw()
 --track0: 量,0,20000,150,1
 --track1:速さ,0,20000,4000,0.001
 --track2:風,-10000,10000,0,0.1
---dialog:大きさ,drop_size=3.00;風バリエーション,windvar=0.0;奥行き,depth=5000;拡散,spread=6.00;長さ,length=100;色/col,color=0xffffff;不透明度,opacity=25.0;シード,seed=0;画面横幅,buffer_w=1920;画面縦幅,buffer_h=1080;前のオブジェクトから続ける/chk,dont_reset=1;
+--dialog:大きさ,drop_size=3.00;風バリエーション,windvar=0.0;奥行き,depth=5000;拡散,spread=6.00;長さ,length=100;色/col,color=0xffffff;不透明度,opacity=25.0;シード,seed=0;画面横幅,buffer_w=1920;画面縦幅,buffer_h=1080;前のオブジェクトから続ける/chk,dont_reset=0;
 
 local drops = obj.track0
 local speed = obj.track1
@@ -196,11 +196,9 @@ function undef_number_check(global_number)
 end
 
 function random_float(min, max)
-    if max - min <= 1 then
         return min + math.random() * (max - min)
-    else 
         return math.random(min, max - 1) + math.random()
-    end
+    return min + math.random() * (max - min)
 end
 
 -- x、y、zは空間上の座標
@@ -210,7 +208,6 @@ end
 function init_drops()
     local result = {}
     for i = 1, drops do
-        local root_depth = math.sqrt(depth)
         -- local z = math.random(100, depth)
         local z = math.random(10, root_depth) ^ 2
         local pos_rate = 100 / z
@@ -226,7 +223,6 @@ end
 if not(pcall(undef_array_check, global_drops)) then
     global_drops = {}
 end
-print(obj.frame)
 -- 現在のレイヤーのテーブルが無い、または1フレーム目で「前のオブジェクトから続ける」がオンの場合初期化
 local do_init_drops = not(pcall(undef_array_check, global_drops[obj.layer])) or (obj.frame == 0 and dont_reset == 0)
 if do_init_drops then
@@ -271,6 +267,7 @@ end
 local current_drops = #drops_table
 local new_drops = drops - current_drops
 
+local root_depth = math.sqrt(depth)
 function spawn_drop(side)
     local root_depth = math.sqrt(depth)
     -- local z = math.random(100, depth)
@@ -326,7 +323,6 @@ for i, drop in ipairs(drops_table) do
     -- opacityは0〜100、ins_opacityは0〜1なことに注意
     local ins_opacity = opacity / drop.z
 
-    print("start_x:" .. start_x .. "\nx" .. drop.x * 100 / drop.z .. "\ncenter_x" .. center_x .. "\n")
     
     obj.load("figure", "四角形", color, 100)
     obj.effect("リサイズ", "X", drop_size * pos_rate, "Y", drop_length * pos_rate, "ドット数でサイズ指定", 1)
