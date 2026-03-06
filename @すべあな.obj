@@ -180,15 +180,11 @@ obj.draw()
 --track0: 量,0,20000,150,1
 --track1:速さ,0,20000,4000,0.001
 --track2:風,-10000,10000,0,0.1
---track3:速さの感度,0,1,1,0.01
---dialog:大きさ,drop_size=3.00;風バリエーション,windvar=0.0;奥行き,depth=5000;拡散,spread=6.00;長さ,length=100;色/col,color=0xffffff;不透明度,alpha=25.0;シード,seed=0;風の感度,driver_wind_sensitive=1;画面横幅,buffer_w=1920;画面縦幅,buffer_h=1080;ドライバーをリセット/chk,reset=0;
+--dialog:大きさ,drop_size=3.00;風バリエーション,windvar=0.0;奥行き,depth=5000;拡散,spread=6.00;長さ,length=100;色/col,color=0xffffff;不透明度,opacity=25.0;シード,seed=0;画面横幅,buffer_w=1920;画面縦幅,buffer_h=1080;前のオブジェクトから続ける/chk,dont_reset=1;
 
 local drops = obj.track0
 local speed = obj.track1
 local wind = obj.track2
-local driver_speed_sensitive = obj.track3
-local MIN_Y_RATE = 0.8
-local MAX_Y_RATE = 1.2
 math.randomseed(seed + obj.frame * 132)
 
 function undef_array_check(global_array)
@@ -199,18 +195,6 @@ function undef_number_check(global_number)
     return global_number+1
 end
 
--- ドライバーをリセット
-if reset == 1 then
-    k2_driver_speed = nil
-    k2_driver_wind = nil
-end
-
--- ドライバーがあれば更新
-if pcall(undef_number_check, k2_driver_speed) and pcall(undef_number_check, k2_driver_wind) then
-    speed = speed * (1 - driver_speed_sensitive) + k2_driver_speed * driver_speed_sensitive
-    wind = wind * (1 - driver_wind_sensitive) + k2_driver_wind * driver_wind_sensitive
-end
-
 function random_float(min, max)
     if max - min <= 1 then
         return min + math.random() * (max - min)
@@ -219,27 +203,32 @@ function random_float(min, max)
     end
 end
 
+-- x、y、zは空間上の座標
+
 -- テーブルを初期化
 -- https://scrapbox.io/totti95u/AviUtlでフレームで初期化されない変数が欲しい
 function init_drops()
     local result = {}
     for i = 1, drops do
-        local x = random_float(-buffer_w / 2, buffer_w / 2)
-        local y = random_float(-buffer_h / 2, buffer_h / 2)
-        local z = math.random(0, depth)
-        local x_rate = random_float(-spread / 90, spread / 90)
-        local y_rate = random_float(MIN_Y_RATE, MAX_Y_RATE)
-        local wind_rate = 1 + random_float(-windvar, windvar) / 100
-        table.insert(result, {x = x, y = y, z = z, x_rate = x_rate, y_rate = y_rate, wind_rate = wind_rate})
+        local root_depth = math.sqrt(depth)
+        -- local z = math.random(100, depth)
+        local z = math.random(10, root_depth) ^ 2
+        local pos_rate = 100 / z
+        local x = random_float(-buffer_w / 2, buffer_w / 2) / pos_rate
+        local y = random_float(-buffer_h / 2, buffer_h / 2 + speed / obj.framerate * (length / 100)) / pos_rate
+        local spread_rate = random_float(-spread / 90, spread / 90)
+        local wind_rate = (1 + random_float(-windvar, windvar) / 100)
+        table.insert(result, {x = x, y = y, z = z, spread_rate = spread_rate, wind_rate = wind_rate})
     end
     return result
 end
 
-if not(pcall(undef_array_check, global_drops)) or (obj.frame == 0) then
+if not(pcall(undef_array_check, global_drops)) then
     global_drops = {}
 end
-
-local do_init_drops = not(pcall(undef_array_check, global_drops[obj.layer]))
+print(obj.frame)
+-- 現在のレイヤーのテーブルが無い、または1フレーム目で「前のオブジェクトから続ける」がオンの場合初期化
+local do_init_drops = not(pcall(undef_array_check, global_drops[obj.layer])) or (obj.frame == 0 and dont_reset == 0)
 if do_init_drops then
     global_drops[obj.layer] = init_drops()
 end
@@ -249,13 +238,14 @@ local drops_table = global_drops[obj.layer]
 local i = 1
 while i <= #drops_table do
     local delete = false
-    if (drops_table[i].x < -buffer_w / 2) and (wind < 0) then
+    local pos_rate = 100 / drops_table[i].z
+    if (drops_table[i].x * pos_rate < -buffer_w / 2) and (wind < 0) then
         delete = true
     end
-    if (drops_table[i].x > buffer_w / 2) and (wind > 0) then
+    if (drops_table[i].x * pos_rate > buffer_w / 2) and (wind > 0) then
         delete = true
     end
-    if drops_table[i].y > buffer_h / 2 + speed / obj.framerate * (length / 100) then
+    if drops_table[i].y * pos_rate > buffer_h / 2 + speed / obj.framerate * (length / 100) * pos_rate then
         delete = true
     end
 
@@ -268,40 +258,43 @@ end
 
 -- 雨粒の移動
 function drop_move(drop)
-    drop.x = drop.x + speed / obj.framerate * drop.x_rate + wind / obj.framerate * drop.wind_rate
-    drop.y = drop.y + speed / obj.framerate * drop.y_rate
+    drop.x = drop.x + (speed / obj.framerate * drop.spread_rate + wind / obj.framerate * drop.wind_rate)
+    drop.y = drop.y + (speed / obj.framerate)
     return drop
 end
-for i = 1, #drops_table do
-    drops_table[i] = drop_move(drops_table[i])
+if not do_init_drops then
+    for i = 1, #drops_table do
+        drops_table[i] = drop_move(drops_table[i])
+    end
 end
-
 -- 雨粒の生成
 local current_drops = #drops_table
-local spawning_drops = drops - current_drops
+local new_drops = drops - current_drops
 
-function spawn_drops(side)
+function spawn_drop(side)
+    local root_depth = math.sqrt(depth)
+    -- local z = math.random(100, depth)
+    local z = math.random(10, root_depth) ^ 2
+    local pos_rate = 100 / z
     local x, y
     if side == 0 then
-        x = math.random(-buffer_w / 2, buffer_w / 2)
-        y = -buffer_h / 2 + random_float(0, speed / obj.framerate)
+        x = math.random(-buffer_w / 2, buffer_w / 2) / pos_rate
+        y = (-buffer_h / 2 + random_float(0, speed / obj.framerate)) / pos_rate
     elseif side == 1 then
-        x = -buffer_w / 2 - random_float(wind / obj.framerate, 0)
-        y = math.random(-buffer_h / 2, buffer_h / 2)
+        x = (-buffer_w / 2 - random_float(wind / obj.framerate, 0)) / pos_rate
+        y = math.random(-buffer_h / 2, buffer_h / 2) / pos_rate
     else
-        x = buffer_w / 2 + random_float(0, wind / obj.framerate)
-        y = math.random(-buffer_h / 2, buffer_h / 2)
+        x = (buffer_w / 2 + random_float(0, wind / obj.framerate)) / pos_rate
+        y = math.random(-buffer_h / 2, buffer_h / 2) / pos_rate
     end
-    local z = math.random(0, depth)
-    local x_rate = random_float(-spread / 90, spread / 90)
-    local y_rate = random_float(MIN_Y_RATE, MAX_Y_RATE)
+    local spread_rate = random_float(-spread / 90, spread / 90)
     local wind_rate = 1 + random_float(-windvar, windvar) / 100
-    return {x = x, y = y, z = z, x_rate = x_rate, y_rate = y_rate, wind_rate = wind_rate}
+    return {x = x, y = y, z = z, spread_rate=spread_rate, wind_rate = wind_rate}
 end
 
 if not do_init_drops then
     local side_probability = math.abs(math.atan2(wind,speed) / math.pi * 2)
-    for i = 1, spawning_drops do
+    for i = 1, new_drops do
         local side = 0
         if math.random() > side_probability then
             side = 0
@@ -314,24 +307,32 @@ if not do_init_drops then
                 side = math.random(1, 2)
             end
         end
-        table.insert(drops_table, spawn_drops(side))
+        table.insert(drops_table, spawn_drop(side))
     end
 end
 
 -- 雨粒を仮想バッファに描画
 obj.setoption("drawtarget", "tempbuffer", buffer_w, buffer_h)
 for i, drop in ipairs(drops_table) do
-    local start_x = drop.x - speed / obj.framerate * drop.x_rate * length / 100- wind / obj.framerate * drop.wind_rate
-    local start_y = drop.y - speed / obj.framerate * drop.y_rate * length / 100
-    local center_x = (drop.x + start_x) / 2
-    local center_y = (drop.y + start_y) / 2
-    local drop_length = math.sqrt(math.abs(drop.x - start_x) ^ 2 + math.abs(drop.y - start_y) ^ 2)
+    local pos_rate = 100 / drop.z
+    local start_x = (drop.x - (speed / obj.framerate * drop.spread_rate + wind / obj.framerate * drop.wind_rate) *  (length / 100)) * pos_rate
+    local start_y = (drop.y - speed / obj.framerate * (length / 100)) * pos_rate
+    local center_x = (drop.x * pos_rate + start_x) / 2
+    local center_y = (drop.y * pos_rate + start_y) / 2
+    local drop_length = math.sqrt(math.abs(drop.x * pos_rate - start_x) ^ 2 + math.abs(drop.y * pos_rate - start_y) ^ 2)
     if drop_length < drop_size then
         drop_length = drop_size
     end
+    -- opacityは0〜100、ins_opacityは0〜1なことに注意
+    local ins_opacity = opacity / drop.z
+
+    print("start_x:" .. start_x .. "\nx" .. drop.x * 100 / drop.z .. "\ncenter_x" .. center_x .. "\n")
+    
     obj.load("figure", "四角形", color, 100)
     obj.effect("リサイズ", "X", drop_size, "Y", drop_length, "ドット数でサイズ指定", 1)
-    obj.draw(center_x, center_y, drop.z, 1, alpha / 100, 0, 0, math.deg(-math.atan2(drop.x - start_x, drop.y - start_y)))
+    obj.draw(center_x, center_y, 0, pos_rate, ins_opacity, 0, 0, math.deg(-math.atan2(drop.x * 100 / drop.z - start_x, drop.y * 100 / drop.z - start_y)))
+    -- obj.effect("リサイズ","X",5, "Y", 5, "ドット数でサイズ指定", 1)
+    -- obj.draw(drop.x * 100 / drop.z, drop.y * 100 / drop.z,0,1,1,0,0,0)
 end
 
 obj.setoption("drawtarget", "framebuffer")
@@ -339,15 +340,5 @@ obj.load("tempbuffer")
 global_drops[obj.layer] = drops_table
 
 -- for i, drop in ipairs(drops_table) do
---     print("x: " .. drop.x .. "\ny: " .. drop.y .. "\nz: " .. drop.z .. "\nxr: " .. drop.x_rate .. "\nyr: " .. drop.y_rate .. "\nwr: " .. drop.wind_rate)
+--     print("x: " .. drop.x .. "\ny: " .. drop.y .. "\nz: " .. drop.z .. "\nsr: " .. drop.spread_rate .. "\nwr: " .. drop.wind_rate)
 -- end
-
-@K2雨ドライバー
---track0:速さ,0,20000,4000,0.001
---track1:風,-10000,10000,0,0.1
-
-function undef_number_check(global_number)
-    return global_number+1
-end
-k2_driver_speed = obj.track0
-k2_driver_wind = obj.track1
