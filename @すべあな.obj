@@ -180,12 +180,47 @@ obj.draw()
 --track0: 量,0,20000,150,1
 --track1:速さ,0,20000,4000,0.001
 --track2:風,-10000,10000,0,0.1
---dialog:大きさ,drop_size=3.00;風バリエーション,windvar=0.0;奥行き,depth=5000;拡散,spread=6.00;長さ,length=100;色/col,color=0xffffff;不透明度,opacity=25.0;シード,seed=0;画面横幅,buffer_w=1920;画面縦幅,buffer_h=1080;前のオブジェクトから続ける/chk,dont_reset=0;
+--dialog:大きさ,drop_size=3.00;風バリエーション,windvar=0.0;奥行き,depth=500;拡散,spread=6.00;長さ,length=100;色/col,color=0xffffff;不透明度,opacity=25.0;シード,seed=0;画面横幅,buffer_w=1920;画面縦幅,buffer_h=1080;前のオブジェクトから続ける/chk,dont_reset=0;
 
 local drops = obj.track0
 local speed = obj.track1
 local wind = obj.track2
 math.randomseed(seed + obj.frame * 132)
+
+-- ダイアログのパラメータを制限
+if drop_size < 0 then
+    drop_size = 0
+end
+if drop_size > 15 then
+    drop_size = 15
+end
+if windvar < 0 then
+    windvar = 0
+end
+if windvar > 100 then
+    windvar = 100
+end
+if depth < 100 then
+    depth = 100
+end
+if depth > 50000 then
+    depth = 50000
+end
+if spread < 0 then
+    spread = 0
+end
+if spread > 90 then
+    spread = 90
+end
+if length < 0 then
+    length = 0
+end
+if opacity < 0 then
+    opacity = 0
+end
+if opacity > 100 then
+    opacity = 100
+end
 
 function undef_array_check(global_array)
     return #global_array
