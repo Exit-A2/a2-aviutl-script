@@ -30,5 +30,10 @@ obj.load("image", path .. tostring(r) .. "." .. ex)
 
 @数字から画像
 --track0:数字,0,1000,0,1
---dialog:ファイルの場所,path="C:\\";最小値,mi=0;最大値,ma=1;拡張子,ex="png";
-obj.load("image", path .. tostring(obj.track0) .. "." .. ex)
+--track1:ゼロ埋め,0,6,0,1
+--dialog:ファイルのパス,path="C:\\%s";
+
+function zfill(number, width)
+    return string.format("%0" .. tostring(width) .. "d", number)
+end
+obj.load("image", string.format(path, zfill(obj.track0, obj.track1)))
