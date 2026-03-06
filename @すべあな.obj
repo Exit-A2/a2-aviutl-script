@@ -329,8 +329,8 @@ for i, drop in ipairs(drops_table) do
     print("start_x:" .. start_x .. "\nx" .. drop.x * 100 / drop.z .. "\ncenter_x" .. center_x .. "\n")
     
     obj.load("figure", "四角形", color, 100)
-    obj.effect("リサイズ", "X", drop_size, "Y", drop_length, "ドット数でサイズ指定", 1)
-    obj.draw(center_x, center_y, 0, pos_rate, ins_opacity, 0, 0, math.deg(-math.atan2(drop.x * 100 / drop.z - start_x, drop.y * 100 / drop.z - start_y)))
+    obj.effect("リサイズ", "X", drop_size * pos_rate, "Y", drop_length * pos_rate, "ドット数でサイズ指定", 1)
+    obj.draw(center_x, center_y, 0, 1, ins_opacity, 0, 0, math.deg(-math.atan2(drop.x * 100 / drop.z - start_x, drop.y * 100 / drop.z - start_y)))
     -- obj.effect("リサイズ","X",5, "Y", 5, "ドット数でサイズ指定", 1)
     -- obj.draw(drop.x * 100 / drop.z, drop.y * 100 / drop.z,0,1,1,0,0,0)
 end
