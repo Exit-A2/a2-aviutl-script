@@ -196,8 +196,6 @@ function undef_number_check(global_number)
 end
 
 function random_float(min, max)
-        return min + math.random() * (max - min)
-        return math.random(min, max - 1) + math.random()
     return min + math.random() * (max - min)
 end
 
@@ -208,8 +206,9 @@ end
 function init_drops()
     local result = {}
     for i = 1, drops do
-        -- local z = math.random(100, depth)
-        local z = math.random(10, root_depth) ^ 2
+        -- 2フレーム目以降はZ座標の小さい雨がすぐ消えるため、Z座標の大きいものが多く残る
+        -- これに合わせるため、1フレームでは2乗の計算を適用しない
+        local z = random_float(100, depth)
         local pos_rate = 100 / z
         local x = random_float(-buffer_w / 2, buffer_w / 2) / pos_rate
         local y = random_float(-buffer_h / 2, buffer_h / 2 + speed / obj.framerate * (length / 100)) / pos_rate
@@ -266,12 +265,10 @@ end
 -- 雨粒の生成
 local current_drops = #drops_table
 local new_drops = drops - current_drops
-
 local root_depth = math.sqrt(depth)
 function spawn_drop(side)
-    local root_depth = math.sqrt(depth)
     -- local z = math.random(100, depth)
-    local z = math.random(10, root_depth) ^ 2
+    local z = random_float(10, root_depth) ^ 2
     local pos_rate = 100 / z
     local x, y
     if side == 0 then
@@ -322,7 +319,6 @@ for i, drop in ipairs(drops_table) do
     end
     -- opacityは0〜100、ins_opacityは0〜1なことに注意
     local ins_opacity = opacity / drop.z
-
     
     obj.load("figure", "四角形", color, 100)
     obj.effect("リサイズ", "X", drop_size * pos_rate, "Y", drop_length * pos_rate, "ドット数でサイズ指定", 1)
@@ -330,7 +326,6 @@ for i, drop in ipairs(drops_table) do
     -- obj.effect("リサイズ","X",5, "Y", 5, "ドット数でサイズ指定", 1)
     -- obj.draw(drop.x * 100 / drop.z, drop.y * 100 / drop.z,0,1,1,0,0,0)
 end
-
 obj.setoption("drawtarget", "framebuffer")
 obj.load("tempbuffer")
 global_drops[obj.layer] = drops_table
