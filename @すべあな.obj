@@ -211,7 +211,7 @@ function init_drops()
         local z = random_float(100, depth)
         local pos_rate = 100 / z
         local x = random_float(-buffer_w / 2, buffer_w / 2) / pos_rate
-        -- 普通に画面高÷2+1フレームの移動距離で計算すると2フレーム目で削除が全く起こらず、穴が出来てしまう
+        -- 普通に画面高÷2+1フレームの移動距離で計算すると2フレーム目で削除が全く起こらず、空白が生まれてしまう
         -- これを防ぐためにスピードの考慮の計算に2をかけ、1フレーム目でも削除処理を実行する
         local y = random_float(-buffer_h / 2, buffer_h / 2 + 2 * speed / obj.framerate * (length / 100)) / pos_rate
         local spread_rate = random_float(-spread / 90, spread / 90)
@@ -248,7 +248,6 @@ while i <= #drops_table do
 
     if delete then
         table.remove(drops_table, i)
-        print("frame "..obj.frame)
     else
         i = i + 1
     end
