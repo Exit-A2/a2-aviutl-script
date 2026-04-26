@@ -362,7 +362,7 @@ for i, drop in ipairs(drops_table) do
         ins_size = 1
     end
     
-    print(drop_size * pos_rate)
+    -- print(drop_size * pos_rate)
     obj.load("figure", "四角形", color, 100)
     obj.effect("リサイズ", "X", ins_size, "Y", drop_length * pos_rate, "ドット数でサイズ指定", 1)
     obj.draw(center_x, center_y, 0, 1, ins_opacity, 0, 0, math.deg(-math.atan2(drop.x * 100 / drop.z - start_x, drop.y * 100 / drop.z - start_y)))
